@@ -163,6 +163,9 @@ body.is-open .prog{opacity:1}
 .sc-cross.bl::before{left:0;bottom:0;width:13px;height:1px}
 .sc-cross.bl::after{left:0;bottom:0;width:1px;height:13px}
 .stagecard>.folder,.stagecard>.fd-shadow,.stagecard>.tap,.stagecard>.gate-foot{position:relative;z-index:1}
+.stagecard{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.stagecard:active{transform:scale(.996)}
+.stagecard{transition:transform .4s var(--sp)}
 body.is-open .gate{opacity:0;transform:scale(.9);visibility:hidden;pointer-events:none}
 
 
@@ -307,7 +310,7 @@ body.opening .tap{opacity:0}
   margin:clamp(13px,3.6vw,17px) 0 0;color:var(--ink);
   font-variant-numeric:tabular-nums;
 }
-.price b{font-weight:600;font-size:clamp(19px,5.3vw,23px);letter-spacing:-.035em;
+.price b{font-weight:900;font-size:clamp(20px,5.6vw,25px);letter-spacing:-.05em;
   filter:url(#speedSmear);will-change:filter}
 .price em{font-style:normal;font-size:9.5px;font-weight:600;letter-spacing:.2em;
   text-transform:uppercase;color:rgba(14,14,13,.34)}
@@ -833,7 +836,45 @@ body.on-dark .bar-l em{color:rgba(255,255,255,.52)}
   .act3 .acts-cta{flex-direction:row;margin-top:26px}
   .bar{left:auto;right:var(--pad);width:min(400px,40vw);padding-bottom:18px}
 }
+/* breakpoint-only content */
+.only-mob{display:none}
+
 @media (max-width:899px){
+  .only-mob{display:block}
+  .only-desk{display:none}
+
+  /* categories stop being containers and become section headers */
+  .cats{gap:0;margin-top:clamp(26px,6vw,34px)}
+  .cat{background:none;border:0;border-radius:0;box-shadow:none;scroll-margin-top:0}
+  .cat::before{display:none}
+  .cat+.cat{margin-top:34px}
+  .cat-head{display:grid;grid-template-columns:auto 1fr auto;align-items:start;
+    gap:0 12px;padding:0 8px 13px 0;cursor:default;border-radius:0;
+    border-bottom:1px solid rgba(14,14,13,.13)}
+  .cat-n{font-size:10.5px;color:var(--signal);padding-top:6px}
+  .cat-t b{font-size:23px;letter-spacing:-.045em;line-height:1.04}
+  .cat-t i{margin-top:5px;font-size:11.5px;color:var(--ink-3)}
+  .cat-art{font-size:14px;align-self:center;margin:2px 6px 0 0}
+  .cat .gi-art{opacity:1}
+  .cat-sign,.cat-close{display:none}
+  .cat-body{grid-template-rows:1fr}
+  .cat-body>div{overflow:visible}
+  .cat-in{margin:0;padding-top:0;border-top:0}
+
+  /* service rows: scannable, several per viewport */
+  .cat .doc-list li{grid-template-columns:15px 1fr;gap:10px;padding:12px 0}
+  .cat .doc-list li:first-child{padding-top:15px}
+  .cat .doc-list svg{width:15px;height:15px;stroke:var(--signal);stroke-width:2.6;
+    opacity:.7;margin-top:2px}
+  .cat .doc-list h3{font-size:15.5px;letter-spacing:-.025em;margin-bottom:2px}
+  .cat .doc-list p{font-size:13.5px;line-height:1.4;color:var(--ink-3)}
+
+  /* restrained per-category reveal, rows staggered behind it */
+  .cat .doc-list li{opacity:0;transform:translateY(7px);
+    transition:opacity .34s var(--ease),transform .34s var(--ease);
+    transition-delay:calc(var(--i,0) * .04s)}
+  .cat.in .doc-list li{opacity:1;transform:none}
+
   .offer .acts-cta{flex-direction:column;align-items:stretch;margin-top:24px}
   .offer .acts-cta .btn{width:100%}
 
@@ -969,9 +1010,10 @@ body.on-dark .bar-l em{color:rgba(255,255,255,.52)}
       <div class="head">
         <p class="eyebrow rv" data-t="eb2">LO QUE HAY ADENTRO</p>
         <h2 class="rv" data-split data-t="h2a">14 servicios. <span class="mut">Cuatro áreas.</span></h2>
-        <p class="lede rv" data-d="2" data-t="lede2">Toca cada área para ver exactamente qué incluye.</p>
+        <p class="lede rv only-desk" data-d="2" data-t="lede2">Toca cada área para ver exactamente qué incluye.</p>
+        <p class="lede rv only-mob" data-d="2" data-t="lede2m">Todo incluido en un solo paquete.</p>
       </div>
-      <div class="cats rv" data-d="2" id="cats"></div>
+      <div class="cats" id="cats"></div>
     </div>
   </section>
 
@@ -1098,7 +1140,7 @@ const COPY = {
       sp1:'Servicios',sp2:'Áreas',sp3:'Paquete',cta1:'Empezar',cta1b:'Empezar',cta1c:'Empezar',
       cta2:'Ver los 14 servicios',eb2:'LO QUE HAY ADENTRO',
       h2a:'14 servicios. <span class="mut">Cuatro áreas.</span>',
-      lede2:'Toca cada área para ver exactamente qué incluye.',
+      lede2:'Toca cada área para ver exactamente qué incluye.',lede2m:'Todo incluido en un solo paquete.',
       band:'Empieza con una llamada corta. Nosotros te decimos qué activar primero.',
       eb3:'SOMI START',
       lede3:'Somi instala, conecta, automatiza y mantiene todo por ti.',
@@ -1120,7 +1162,7 @@ const COPY = {
       sp1:'Services',sp2:'Areas',sp3:'Package',cta1:'Get started',cta1b:'Get started',cta1c:'Get started',
       cta2:'See all 14 services',eb2:'WHAT IS INSIDE',
       h2a:'14 services. <span class="mut">Four areas.</span>',
-      lede2:'Tap each area to see exactly what it includes.',
+      lede2:'Tap each area to see exactly what it includes.',lede2m:'All of it included in one package.',
       band:'Start with a short call. We tell you what to switch on first.',
       eb3:'SOMI START',
       lede3:'Somi installs, connects, automates, and maintains all of it for you.',
@@ -1208,17 +1250,21 @@ function renderMarquee(){
   $('#mqTrack').innerHTML=set+set;
 }
 
-/* ---------- render : category accordion ---------- */
+/* ---------- render : categories ----------
+   desktop keeps the accordion. mobile prints all 14 services flat, no
+   interaction, because the folder was opened to read what is inside it. ---- */
 let openCat=null;
 const ROT=[-5,4,6,-3];
+const flat=()=>matchMedia('(max-width:899px)').matches;
 
 function catHTML(d,i){
-  const nn=String(i+1).padStart(2,'0'), on=d.k===openCat;
-  const items=d.items.map(it=>
-    `<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.6l5.1 5.1L20 6.9"/></svg>
+  const nn=String(i+1).padStart(2,'0'), on=d.k===openCat, m=flat();
+  const H=m?'div':'button', attrs=m?'':` type="button" aria-expanded="${on}" aria-controls="cb-${d.k}"`;
+  const items=d.items.map((it,j)=>
+    `<li style="--i:${j}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.6l5.1 5.1L20 6.9"/></svg>
       <div><h3>${it[0]}</h3><p>${it[1]}</p></div></li>`).join('');
-  return `<div class="cat${on?' open':''}" data-k="${d.k}">
-    <button class="cat-head" type="button" aria-expanded="${on}" aria-controls="cb-${d.k}">
+  return `<div class="cat rv${on?' open':''}" data-k="${d.k}">
+    <${H} class="cat-head"${attrs}>
       <span class="cat-n">${nn}</span>
       <span class="cat-t"><b>${d.t}</b><i>${d.items.length} ${COPY[lang].svc}</i></span>
       <span class="cat-art" aria-hidden="true"><span class="gi-art" style="--rot:${ROT[i]}deg">
@@ -1226,7 +1272,7 @@ function catHTML(d,i){
         <span class="gi-front"><span class="gi-ic"><svg viewBox="0 0 24 24">${IC[d.k]}</svg></span></span>
       </span></span>
       <span class="cat-sign" aria-hidden="true"></span>
-    </button>
+    </${H}>
     <div class="cat-body" id="cb-${d.k}"><div><div class="cat-in">
       <ul class="doc-list">${items}</ul>
       <button class="cat-close" type="button">
@@ -1240,15 +1286,17 @@ function setCat(el,on){
   $$('#cats .cat').forEach(x=>{
     const o = x===el && on;
     x.classList.toggle('open',o);
-    x.querySelector('.cat-head').setAttribute('aria-expanded',String(o));
+    const h=x.querySelector('.cat-head');
+    if(h.tagName==='BUTTON') h.setAttribute('aria-expanded',String(o));
   });
   openCat = on ? el.dataset.k : null;
 }
 
 function renderCats(){
   const box=$('#cats'); if(!box) return;
+  if(flat()) openCat=null;
   box.innerHTML = DATA[lang].map(catHTML).join('');
-  $$('#cats .cat').forEach(c=>{
+  if(!flat()) $$('#cats .cat').forEach(c=>{
     c.querySelector('.cat-head').addEventListener('click',()=>{
       const on=!c.classList.contains('open');
       setCat(c,on);
@@ -1264,6 +1312,15 @@ function renderCats(){
   });
   observe();
 }
+
+/* re-render only when the breakpoint actually flips */
+let wasFlat=flat();
+addEventListener('resize',()=>{
+  if(flat()===wasFlat) return;
+  wasFlat=flat();
+  renderCats();
+  $$('#cats .rv').forEach(el=>el.classList.add('in'));
+},{passive:true});
 
 function renderCopy(){
   $$('[data-t]').forEach(el=>{
@@ -1311,7 +1368,10 @@ function setOpen(on){
   }
   folder.setAttribute('aria-label', on?COPY[lang].close:COPY[lang].open);
 }
-folder.addEventListener('click',()=>{
+/* the whole cream card is the target, not just the folder graphic.
+   a click on the folder button bubbles up here, so one handler covers both. */
+$('.stagecard').addEventListener('click',()=>{
+  if(body.classList.contains('is-open')||body.classList.contains('opening')) return;
   if(reduce){setOpen(true);return;}
   folder.classList.add('press');
   setTimeout(()=>{folder.classList.remove('press');setOpen(true);},110);
@@ -1370,15 +1430,20 @@ if('IntersectionObserver' in window){
   /* the bar takes over the moment the hero CTA leaves the screen, and stays
      for the rest of the page except where the closing CTA would compete */
   const hero=$('.offer [data-cta]'), last=$('.act3 [data-cta]');
-  let heroGone=false, lastSeen=false;
+  let heroSeen=false, heroGone=false, lastSeen=false;
   const sync=()=>body.classList.toggle('bar-on',
-    body.classList.contains('is-open') && heroGone && !lastSeen);
+    body.classList.contains('is-open') && heroSeen && heroGone && !lastSeen);
+  /* heroSeen matters on mobile, where the services sit above the CTA: the bar
+     must not appear before the button it is standing in for has been on screen */
   if(hero) new IntersectionObserver(es=>{
-    es.forEach(e=>heroGone=!e.isIntersecting); sync();
+    es.forEach(e=>{ if(e.isIntersecting){heroSeen=true;heroGone=false;} else if(heroSeen) heroGone=true; });
+    sync();
   },{threshold:0}).observe(hero);
+  /* the bar only yields once the closing CTA is properly on screen, not the
+     instant it peeks over the bottom edge */
   if(last) new IntersectionObserver(es=>{
     es.forEach(e=>lastSeen=e.isIntersecting); sync();
-  },{threshold:.4}).observe(last);
+  },{threshold:1,rootMargin:'0px 0px -30% 0px'}).observe(last);
   addEventListener('scroll',sync,{passive:true});
 }
 
