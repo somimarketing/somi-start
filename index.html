@@ -708,7 +708,8 @@ body.pill-on .pill{opacity:1;transform:none;pointer-events:auto}
 .act2{scroll-margin-top:64px;background:var(--sand2);
   padding:clamp(36px,6.5vh,64px) 0 clamp(32px,5.5vh,56px)}
 .act2 .lede{max-width:34ch}
-.cats{display:flex;flex-direction:column;gap:10px;margin-top:clamp(24px,5.5vw,36px)}
+.cats{display:flex;flex-direction:column;gap:10px;margin-top:clamp(24px,5.5vw,36px);
+  overflow-anchor:none}
 .cat{background:var(--paper);border:1px solid var(--hair);border-radius:18px;position:relative;scroll-margin-top:74px;
   transition:border-color .35s var(--ease),box-shadow .45s var(--ease)}
 .cat::before{content:"";position:absolute;left:14px;right:14px;bottom:-5px;height:14px;z-index:-1;
@@ -716,19 +717,45 @@ body.pill-on .pill{opacity:1;transform:none;pointer-events:auto}
   opacity:.9;transition:opacity .4s var(--ease),transform .45s var(--sp)}
 .cat.open{border-color:rgba(14,14,13,.88);box-shadow:0 24px 50px -32px rgba(14,14,13,.55)}
 .cat.open::before{opacity:0;transform:translateY(-6px)}
-.cat-head{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:13px;
-  width:100%;padding:15px 16px;background:none;border:0;cursor:pointer;text-align:left;
+.cat-head{display:grid;grid-template-columns:auto 1fr auto;align-items:start;gap:0 13px;
+  width:100%;padding:16px 16px 14px;background:none;border:0;cursor:pointer;text-align:left;
   color:var(--ink);-webkit-tap-highlight-color:transparent;border-radius:18px;
   -webkit-appearance:none;appearance:none}
+.cat-n{grid-row:1;grid-column:1;padding-top:5px}
+.cat-t{grid-row:1;grid-column:2}
+.cat-art{grid-row:1;grid-column:3;align-self:start;margin:3px 6px 0 0}
+.cat-cue{grid-row:2;grid-column:2/-1}
 .cat-n{font-size:10px;font-weight:800;letter-spacing:.16em;color:var(--ink-3);
   font-variant-numeric:tabular-nums;transition:color .3s var(--ease)}
 .cat.open .cat-n{color:var(--signal)}
 .cat-t{min-width:0}
-.cat-t b{display:block;font-size:18px;font-weight:800;letter-spacing:-.035em;line-height:1.14;
+.cat-t b{display:block;font-size:19px;font-weight:800;letter-spacing:-.038em;line-height:1.12;
   color:var(--ink)}
 .cat-t i{display:block;margin-top:3px;font-style:normal;font-size:11.5px;font-weight:600;color:var(--ink-3);
   transition:color .3s var(--ease)}
-.cat.open .cat-t i{color:var(--ink-2)}
+.cat.open .cat-t i{color:var(--signal)}
+.cat-t em{display:block;margin-top:8px;font-style:normal;font-size:13px;font-weight:450;
+  line-height:1.42;color:var(--ink-3);max-width:36ch}
+
+/* the interaction cue: a line the user can read, not a lone glyph */
+.cat-cue{display:flex;align-items:center;gap:7px;margin-top:13px;padding-top:12px;
+  border-top:1px solid var(--hair-2);
+  font-size:12px;font-weight:700;letter-spacing:.01em;color:var(--ink-2);
+  transition:color .3s var(--ease),border-color .3s var(--ease)}
+.cat-cue .c-c{display:none}
+.cat.open .cat-cue .c-o{display:none}
+.cat.open .cat-cue .c-c{display:inline}
+.cat-cue i{font-style:normal}
+.cat.open .cat-cue,.cat-head:hover .cat-cue{color:var(--ink)}
+.cat.open .cat-cue{border-color:var(--hair)}
+.cat-cue svg{width:13px;height:13px;stroke:var(--signal);stroke-width:2.6;fill:none;
+  stroke-linecap:round;stroke-linejoin:round;transition:transform .45s var(--sp)}
+.cat.open .cat-cue svg{transform:rotate(-90deg)}
+.cat-head:hover .cat-cue svg{transform:translateX(3px)}
+.cat.open .cat-head:hover .cat-cue svg{transform:rotate(-90deg) translateX(3px)}
+
+/* a switch between cards must not move the page under the user */
+.cat.no-anim .cat-body{transition:none}
 .cat-art{font-size:15px;display:block}
 .cat .gi-art{display:block;width:2.6em;height:2.6em;opacity:.92;
   transition:transform .45s var(--sp),opacity .35s var(--ease)}
@@ -737,7 +764,7 @@ body.pill-on .pill{opacity:1;transform:none;pointer-events:auto}
 .cat.open .gi-art{opacity:1}
 .cat.open .gi-back{transform:rotate(26deg) translate3d(-.42em,-.42em,.4em)}
 .cat.open .gi-front{transform:translate3d(0,0,1.5em)}
-.cat-sign{width:12px;height:12px;position:relative;flex:none;margin-left:5px}
+.cat-sign{display:none}
 .cat-sign::before,.cat-sign::after{content:"";position:absolute;background:var(--ink-3);border-radius:2px;
   transition:.42s var(--sp)}
 .cat-sign::before{left:0;right:0;top:5.2px;height:1.6px}
@@ -748,8 +775,12 @@ body.pill-on .pill{opacity:1;transform:none;pointer-events:auto}
 .cat-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--ease)}
 .cat.open .cat-body{grid-template-rows:1fr}
 .cat-body>div{overflow:hidden;min-height:0}
-.cat-in{margin:0 16px;padding-top:2px;border-top:1px solid var(--hair-2)}
+.cat-in{margin:0 16px;padding-top:0;padding-bottom:6px}
 .cat .doc-list{padding:0;border-top:0}
+.cat .doc-list li{opacity:0;transform:translateY(7px);
+  transition:opacity .34s var(--ease),transform .34s var(--ease);
+  transition-delay:calc(var(--i,0) * .04s)}
+.cat.open .doc-list li{opacity:1;transform:none}
 .cat-close{display:inline-flex;align-items:center;gap:7px;margin:2px 0 14px;padding:8px 0;
   background:none;border:0;cursor:pointer;color:var(--ink-3);
   font:700 9.5px/1 Inter,system-ui,sans-serif;letter-spacing:.18em;text-transform:uppercase;
@@ -823,11 +854,12 @@ body.on-dark .bar-l em{color:rgba(255,255,255,.52)}
   .offer .acts-cta{flex-direction:row}
   .offer .acts-cta .btn{width:auto}
   .cats{max-width:800px}
-  .cat-head{padding:20px 24px;gap:18px}
-  .cat-t b{font-size:21px}
+  .cat-head{padding:22px 24px 18px;gap:0 18px}
+  .cat-t b{font-size:22px}
   .cat-t i{font-size:12.5px}
+  .cat-t em{font-size:13.5px;max-width:44ch}
   .cat-art{font-size:19px}
-  .cat-in{margin:0 24px}
+  .cat-in{margin:0 24px;padding-top:0}
   .cat .doc-list{columns:2;column-gap:42px}
   .cat .doc-list li{break-inside:avoid}
   .steps{display:grid;grid-template-columns:repeat(3,1fr);column-gap:34px}
@@ -836,45 +868,7 @@ body.on-dark .bar-l em{color:rgba(255,255,255,.52)}
   .act3 .acts-cta{flex-direction:row;margin-top:26px}
   .bar{left:auto;right:var(--pad);width:min(400px,40vw);padding-bottom:18px}
 }
-/* breakpoint-only content */
-.only-mob{display:none}
-
 @media (max-width:899px){
-  .only-mob{display:block}
-  .only-desk{display:none}
-
-  /* categories stop being containers and become section headers */
-  .cats{gap:0;margin-top:clamp(26px,6vw,34px)}
-  .cat{background:none;border:0;border-radius:0;box-shadow:none;scroll-margin-top:0}
-  .cat::before{display:none}
-  .cat+.cat{margin-top:34px}
-  .cat-head{display:grid;grid-template-columns:auto 1fr auto;align-items:start;
-    gap:0 12px;padding:0 8px 13px 0;cursor:default;border-radius:0;
-    border-bottom:1px solid rgba(14,14,13,.13)}
-  .cat-n{font-size:10.5px;color:var(--signal);padding-top:6px}
-  .cat-t b{font-size:23px;letter-spacing:-.045em;line-height:1.04}
-  .cat-t i{margin-top:5px;font-size:11.5px;color:var(--ink-3)}
-  .cat-art{font-size:14px;align-self:center;margin:2px 6px 0 0}
-  .cat .gi-art{opacity:1}
-  .cat-sign,.cat-close{display:none}
-  .cat-body{grid-template-rows:1fr}
-  .cat-body>div{overflow:visible}
-  .cat-in{margin:0;padding-top:0;border-top:0}
-
-  /* service rows: scannable, several per viewport */
-  .cat .doc-list li{grid-template-columns:15px 1fr;gap:10px;padding:12px 0}
-  .cat .doc-list li:first-child{padding-top:15px}
-  .cat .doc-list svg{width:15px;height:15px;stroke:var(--signal);stroke-width:2.6;
-    opacity:.7;margin-top:2px}
-  .cat .doc-list h3{font-size:15.5px;letter-spacing:-.025em;margin-bottom:2px}
-  .cat .doc-list p{font-size:13.5px;line-height:1.4;color:var(--ink-3)}
-
-  /* restrained per-category reveal, rows staggered behind it */
-  .cat .doc-list li{opacity:0;transform:translateY(7px);
-    transition:opacity .34s var(--ease),transform .34s var(--ease);
-    transition-delay:calc(var(--i,0) * .04s)}
-  .cat.in .doc-list li{opacity:1;transform:none}
-
   .offer .acts-cta{flex-direction:column;align-items:stretch;margin-top:24px}
   .offer .acts-cta .btn{width:100%}
 
@@ -984,7 +978,7 @@ body.on-dark .bar-l em{color:rgba(255,255,255,.52)}
       <div class="o-r">
         <div class="deal rv" data-d="2">
           <span><b>14</b><span data-t="d1">servicios</span></span><i></i>
-          <span><b>4</b><span data-t="d2">áreas</span></span><i></i>
+          <span><b>3</b><span data-t="d2">áreas</span></span><i></i>
           <span><b>1</b><span data-t="d3">paquete</span></span>
         </div>
         <div class="pricebox rv" data-d="3">
@@ -1009,9 +1003,8 @@ body.on-dark .bar-l em{color:rgba(255,255,255,.52)}
     <div class="wrap">
       <div class="head">
         <p class="eyebrow rv" data-t="eb2">LO QUE HAY ADENTRO</p>
-        <h2 class="rv" data-split data-t="h2a">14 servicios. <span class="mut">Cuatro áreas.</span></h2>
-        <p class="lede rv only-desk" data-d="2" data-t="lede2">Toca cada área para ver exactamente qué incluye.</p>
-        <p class="lede rv only-mob" data-d="2" data-t="lede2m">Todo incluido en un solo paquete.</p>
+        <h2 class="rv" data-split data-t="h2a">14 servicios. <span class="mut">Tres áreas.</span></h2>
+        <p class="lede rv" data-d="2" data-t="lede2">Todo incluido en un solo paquete.</p>
       </div>
       <div class="cats" id="cats"></div>
     </div>
@@ -1023,9 +1016,9 @@ body.on-dark .bar-l em{color:rgba(255,255,255,.52)}
       <p class="eyebrow rv" data-t="ebSteps">CÓMO EMPIEZA</p>
       <h2 class="rv" data-split data-t="hSteps">Tú empiezas hoy. <span class="mut">Nosotros hacemos el resto.</span></h2>
       <div class="steps rv" data-d="2">
-        <div class="step"><b>01</b><div><h3 data-t="s1t">Una llamada corta</h3><p data-t="s1p">Nos cuentas de tu negocio. Te decimos qué activar primero.</p></div></div>
-        <div class="step"><b>02</b><div><h3 data-t="s2t">Lo instalamos todo</h3><p data-t="s2p">Sitio, perfiles, contenido, automatizaciones y captación. Sin que muevas un dedo.</p></div></div>
-        <div class="step"><b>03</b><div><h3 data-t="s3t">Lo mantenemos activo</h3><p data-t="s3p">Publicaciones, respuestas y reporte cada mes. Tu negocio nunca se apaga.</p></div></div>
+        <div class="step"><b>01</b><div><h3 data-t="s1t">Una llamada corta</h3><p data-t="s1p">Nos cuentas de tu negocio y lo que necesitas.</p></div></div>
+        <div class="step"><b>02</b><div><h3 data-t="s2t">Lo instalamos todo</h3><p data-t="s2p">Nosotros configuramos y ponemos en marcha todo lo incluido.</p></div></div>
+        <div class="step"><b>03</b><div><h3 data-t="s3t">Lo mantenemos activo</h3><p data-t="s3p">Cada mes seguimos creando, optimizando y operando por ti.</p></div></div>
       </div>
     </div>
   </section>
@@ -1073,55 +1066,57 @@ body.on-dark .bar-l em{color:rgba(255,255,255,.52)}
 
 <script>
 const IC = {
-  presencia:'<path d="M12 3a9 9 0 100 18 9 9 0 000-18z"/><path d="M3.6 9h16.8M3.6 15h16.8"/><path d="M12 3c2.5 2.6 3.7 5.6 3.7 9s-1.2 6.4-3.7 9c-2.5-2.6-3.7-5.6-3.7-9S9.5 5.6 12 3z"/>',
-  contenido:'<rect x="3" y="4.5" width="18" height="15" rx="3"/><path d="M10.2 9.4l4.6 2.6-4.6 2.6V9.4z"/>',
-  clientes:'<path d="M16.5 20v-1.6a4 4 0 00-4-4H6.4a4 4 0 00-4 4V20"/><circle cx="9.4" cy="7.4" r="3.4"/><path d="M21.6 20v-1.6a4 4 0 00-3-3.87M16.2 4.13a4 4 0 010 7.75"/>',
-  resultados:'<path d="M3 20h18"/><path d="M6.5 20v-6.5M11.5 20V7M16.5 20v-9.5M21 20V4"/>'
+  sitio:'<path d="M12 3a9 9 0 100 18 9 9 0 000-18z"/><path d="M3.6 9h16.8M3.6 15h16.8"/><path d="M12 3c2.5 2.6 3.7 5.6 3.7 9s-1.2 6.4-3.7 9c-2.5-2.6-3.7-5.6-3.7-9S9.5 5.6 12 3z"/>',
+  redes:'<rect x="3" y="4.5" width="18" height="15" rx="3"/><path d="M10.2 9.4l4.6 2.6-4.6 2.6V9.4z"/>',
+  ventas:'<path d="M16.5 20v-1.6a4 4 0 00-4-4H6.4a4 4 0 00-4 4V20"/><circle cx="9.4" cy="7.4" r="3.4"/><path d="M21.6 20v-1.6a4 4 0 00-3-3.87M16.2 4.13a4 4 0 010 7.75"/>'
 };
 const TINT = {
-  presencia:'linear-gradient(150deg,#FF7A45,#E23B12)',
-  contenido:'linear-gradient(150deg,#3E77D6,#16336F)',
-  clientes: 'linear-gradient(150deg,#FF6A2B,#C42D0B)',
-  resultados:'linear-gradient(150deg,#8FC3F5,#3E77D6)'
+  sitio: 'linear-gradient(150deg,#FF7A45,#E23B12)',
+  redes: 'linear-gradient(150deg,#3E77D6,#16336F)',
+  ventas:'linear-gradient(150deg,#FF6A2B,#C42D0B)'
 };
 const DATA = {
   es:[
-    {k:'presencia',n:'Documento 01',t:'Presencia digital',items:[
+    {k:'sitio',n:'Documento 01',t:'Tu Sitio Web',
+     d:'Tu página web, Google y todos tus puntos de contacto digitales.',items:[
       ['Sitio web profesional','Credibilidad inmediata y visitas que se convierten en clientes.'],
       ['Optimización de Google','Tu negocio actualizado y fácil de encontrar en Google.'],
       ['Optimización de perfiles','Biografías, enlaces y datos de contacto listos para vender.'],
       ['Link en bio','Una página que conecta a tus clientes con todo lo importante.'],
       ['QR inteligentes','Tu menú o servicios al instante desde el celular.']]},
-    {k:'contenido',n:'Documento 02',t:'Contenido',items:[
+    {k:'redes',n:'Documento 02',t:'Redes Sociales',
+     d:'Contenido constante para mantener tu negocio activo y visible.',items:[
       ['Publicaciones diarias automatizadas','Tu negocio activo y visible todos los días.'],
       ['Videos promocionales','Videos cortos que captan atención y generan interés.'],
       ['Estrategia mensual','Un plan claro de qué publicar y qué promocionar.']]},
-    {k:'clientes',n:'Documento 03',t:'Clientes',items:[
+    {k:'ventas',n:'Documento 03',t:'Ventas',
+     d:'Herramientas para captar, atender y recuperar clientes.',items:[
       ['Captura de clientes','QR que recopila nombres, teléfonos y datos útiles.'],
       ['Chatbot 24/7','Responde y atiende incluso cuando no estás disponible.'],
       ['Retención','Mantén el contacto con tus clientes y motívalos a regresar.'],
-      ['Reactivación','Vuelve a conectar con clientes que dejaron de comprar.']]},
-    {k:'resultados',n:'Documento 04',t:'Resultados',items:[
+      ['Reactivación','Vuelve a conectar con clientes que dejaron de comprar.'],
       ['Gestión de reseñas','Respuestas profesionales que fortalecen tu reputación.'],
       ['Reporte mensual','Métricas claras para ver qué está funcionando.']]}
   ],
   en:[
-    {k:'presencia',n:'Document 01',t:'Digital presence',items:[
+    {k:'sitio',n:'Document 01',t:'Your Website',
+     d:'Your website, Google, and every digital touchpoint you have.',items:[
       ['Professional website','Instant credibility and visits that turn into inquiries.'],
       ['Google optimization','Your business polished, updated, and easy to find.'],
       ['Profile optimization','Bios, links, and contact details ready to sell.'],
       ['Link in bio','One page connecting customers to everything that matters.'],
       ['Smart QR codes','Your menu or services, instantly, from any phone.']]},
-    {k:'contenido',n:'Document 02',t:'Content',items:[
+    {k:'redes',n:'Document 02',t:'Social Media',
+     d:'Steady content that keeps your business active and visible.',items:[
       ['Daily automated posts','Your business active and visible every day.'],
       ['Promo videos','Short videos built to catch attention and create interest.'],
       ['Monthly strategy','A clear plan for what to post and what to promote.']]},
-    {k:'clientes',n:'Document 03',t:'Customers',items:[
+    {k:'ventas',n:'Document 03',t:'Sales',
+     d:'Tools to capture, serve, and win back customers.',items:[
       ['Customer capture','QR codes that collect names, numbers, and useful data.'],
       ['24/7 chatbot','Answers and helps customers even when you are away.'],
       ['Retention','Stay in touch with customers and bring them back.'],
-      ['Reactivation','Reconnect with customers who stopped buying.']]},
-    {k:'resultados',n:'Document 04',t:'Results',items:[
+      ['Reactivation','Reconnect with customers who stopped buying.'],
       ['Review management','Professional replies that strengthen your reputation.'],
       ['Monthly report','Clear metrics that show what is working.']]}
   ]
@@ -1129,18 +1124,18 @@ const DATA = {
 const COPY = {
   es:{
       d1:'servicios',d2:'áreas',d3:'paquete',permes:'/ mes',permes2:'/ mes',permes3:'MXN / mes',
-      wasLbl:'valor mensual',cerrar:'Cerrar',
+      wasLbl:'valor mensual',cerrar:'Cerrar',verSvc:'Ver servicios',
       ebSteps:'CÓMO EMPIEZA',hSteps:'Tú empiezas hoy. <span class="mut">Nosotros hacemos el resto.</span>',
-      s1t:'Una llamada corta',s1p:'Nos cuentas de tu negocio. Te decimos qué activar primero.',
-      s2t:'Lo instalamos todo',s2p:'Sitio, perfiles, contenido, automatizaciones y captación. Sin que muevas un dedo.',
-      s3t:'Lo mantenemos activo',s3p:'Publicaciones, respuestas y reporte cada mes. Tu negocio nunca se apaga.',
+      s1t:'Una llamada corta',s1p:'Nos cuentas de tu negocio y lo que necesitas.',
+      s2t:'Lo instalamos todo',s2p:'Nosotros configuramos y ponemos en marcha todo lo incluido.',
+      s3t:'Lo mantenemos activo',s3p:'Cada mes seguimos creando, optimizando y operando por ti.',
       tap:'Toca para abrir',gf1:'14 servicios',gf2:'1 paquete',back:'Cerrar',
       h1:'Todo lo que tu|negocio necesita|en línea.',
       lede1:'Lo instalamos, lo operamos y lo mantenemos cada mes. Tú solo atiendes a los clientes que llegan.',
       sp1:'Servicios',sp2:'Áreas',sp3:'Paquete',cta1:'Empezar',cta1b:'Empezar',cta1c:'Empezar',
       cta2:'Ver los 14 servicios',eb2:'LO QUE HAY ADENTRO',
-      h2a:'14 servicios. <span class="mut">Cuatro áreas.</span>',
-      lede2:'Toca cada área para ver exactamente qué incluye.',lede2m:'Todo incluido en un solo paquete.',
+      h2a:'14 servicios. <span class="mut">Tres áreas.</span>',
+      lede2:'Todo incluido en un solo paquete.',
       band:'Empieza con una llamada corta. Nosotros te decimos qué activar primero.',
       eb3:'SOMI START',
       lede3:'Somi instala, conecta, automatiza y mantiene todo por ti.',
@@ -1151,18 +1146,18 @@ const COPY = {
       svc:'servicios',open:'Abrir la carpeta',close:'Cerrar carpeta'},
   en:{
       d1:'services',d2:'areas',d3:'package',permes:'/ mo',permes2:'/ mo',permes3:'MXN / mo',
-      wasLbl:'monthly value',cerrar:'Close',
+      wasLbl:'monthly value',cerrar:'Close',verSvc:'See services',
       ebSteps:'HOW IT STARTS',hSteps:'You start today. <span class="mut">We do the rest.</span>',
-      s1t:'One short call',s1p:'Tell us about your business. We tell you what to switch on first.',
-      s2t:'We install all of it',s2p:'Site, profiles, content, automations, and lead capture. You do nothing.',
-      s3t:'We keep it running',s3p:'Posts, replies, and a report every month. Your business never goes quiet.',
+      s1t:'One short call',s1p:'Tell us about your business and what you need.',
+      s2t:'We install all of it',s2p:'We configure everything included and put it to work.',
+      s3t:'We keep it running',s3p:'Every month we keep creating, optimising, and running it for you.',
       tap:'Tap to open',gf1:'14 services',gf2:'1 package',back:'Close',
       h1:'Everything your|business needs|online.',
       lede1:'We install it, run it, and maintain it every month. You just handle the customers who show up.',
       sp1:'Services',sp2:'Areas',sp3:'Package',cta1:'Get started',cta1b:'Get started',cta1c:'Get started',
       cta2:'See all 14 services',eb2:'WHAT IS INSIDE',
-      h2a:'14 services. <span class="mut">Four areas.</span>',
-      lede2:'Tap each area to see exactly what it includes.',lede2m:'All of it included in one package.',
+      h2a:'14 services. <span class="mut">Three areas.</span>',
+      lede2:'All of it included in one package.',
       band:'Start with a short call. We tell you what to switch on first.',
       eb3:'SOMI START',
       lede3:'Somi installs, connects, automates, and maintains all of it for you.',
@@ -1200,7 +1195,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const body=document.body, folder=$('#folder'), gate=$('#gate');
 const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 if(reduce) body.classList.add('no-motion');
-let lang='es', openDocs=new Set(['presencia']);
+let lang='es';
 
 /* ---------- word split for masked headline reveal ---------- */
 function split(el){
@@ -1250,77 +1245,79 @@ function renderMarquee(){
   $('#mqTrack').innerHTML=set+set;
 }
 
-/* ---------- render : categories ----------
-   desktop keeps the accordion. mobile prints all 14 services flat, no
-   interaction, because the folder was opened to read what is inside it. ---- */
+/* ---------- render : the three parts of the package ---------- */
 let openCat=null;
-const ROT=[-5,4,6,-3];
-const flat=()=>matchMedia('(max-width:899px)').matches;
+const ROT=[-5,4,-3];
 
 function catHTML(d,i){
-  const nn=String(i+1).padStart(2,'0'), on=d.k===openCat, m=flat();
-  const H=m?'div':'button', attrs=m?'':` type="button" aria-expanded="${on}" aria-controls="cb-${d.k}"`;
+  const nn=String(i+1).padStart(2,'0'), on=d.k===openCat;
   const items=d.items.map((it,j)=>
     `<li style="--i:${j}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.6l5.1 5.1L20 6.9"/></svg>
       <div><h3>${it[0]}</h3><p>${it[1]}</p></div></li>`).join('');
   return `<div class="cat rv${on?' open':''}" data-k="${d.k}">
-    <${H} class="cat-head"${attrs}>
+    <button class="cat-head" type="button" aria-expanded="${on}" aria-controls="cb-${d.k}">
       <span class="cat-n">${nn}</span>
-      <span class="cat-t"><b>${d.t}</b><i>${d.items.length} ${COPY[lang].svc}</i></span>
+      <span class="cat-t">
+        <b>${d.t}</b>
+        <i>${d.items.length} ${COPY[lang].svc}</i>
+        <em>${d.d}</em>
+      </span>
       <span class="cat-art" aria-hidden="true"><span class="gi-art" style="--rot:${ROT[i]}deg">
         <span class="gi-back" style="background:${TINT[d.k]}"></span>
         <span class="gi-front"><span class="gi-ic"><svg viewBox="0 0 24 24">${IC[d.k]}</svg></span></span>
       </span></span>
-      <span class="cat-sign" aria-hidden="true"></span>
-    </${H}>
+      <span class="cat-cue">
+        <i class="c-o">${COPY[lang].verSvc}</i><i class="c-c">${COPY[lang].cerrar}</i>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </span>
+    </button>
     <div class="cat-body" id="cb-${d.k}"><div><div class="cat-in">
       <ul class="doc-list">${items}</ul>
-      <button class="cat-close" type="button">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>${COPY[lang].cerrar}
-      </button>
     </div></div></div>
   </div>`;
 }
 
+/* opening never moves the page under the user. if the card that is closing sits
+   above the one being opened, its collapse is taken instantly and the scroll is
+   corrected by the same amount in the same frame, so the tapped header stays
+   exactly where the finger left it. */
 function setCat(el,on){
+  const root=document.documentElement;
+  const prev=$('#cats .cat.open');
+  /* only a card closing ABOVE this one can pull the page out from under it */
+  const anchor = prev && prev!==el && on &&
+                 prev.getBoundingClientRect().top < el.getBoundingClientRect().top;
+  if(anchor) prev.classList.add('no-anim');
+  const before = anchor ? el.getBoundingClientRect().top : 0;
+
   $$('#cats .cat').forEach(x=>{
     const o = x===el && on;
     x.classList.toggle('open',o);
-    const h=x.querySelector('.cat-head');
-    if(h.tagName==='BUTTON') h.setAttribute('aria-expanded',String(o));
+    x.querySelector('.cat-head').setAttribute('aria-expanded',String(o));
   });
+
+  if(anchor){
+    const d = el.getBoundingClientRect().top - before;   // reads back the real shift
+    if(d){
+      const sb=root.style.scrollBehavior;
+      root.style.scrollBehavior='auto';                  // never animate a correction
+      window.scrollBy(0,d);
+      root.style.scrollBehavior=sb;
+    }
+  }
+  if(prev) requestAnimationFrame(()=>requestAnimationFrame(()=>prev.classList.remove('no-anim')));
   openCat = on ? el.dataset.k : null;
 }
 
 function renderCats(){
   const box=$('#cats'); if(!box) return;
-  if(flat()) openCat=null;
   box.innerHTML = DATA[lang].map(catHTML).join('');
-  if(!flat()) $$('#cats .cat').forEach(c=>{
-    c.querySelector('.cat-head').addEventListener('click',()=>{
-      const on=!c.classList.contains('open');
-      setCat(c,on);
-      if(on) setTimeout(()=>{
-        const t=c.getBoundingClientRect().top;
-        if(t<74 || t>innerHeight*.55) c.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
-      },90);
-    });
-    c.querySelector('.cat-close').addEventListener('click',()=>{
-      setCat(c,false);
-      c.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});
-    });
+  $$('#cats .cat').forEach(c=>{
+    c.querySelector('.cat-head').addEventListener('click',()=>
+      setCat(c,!c.classList.contains('open')));
   });
   observe();
 }
-
-/* re-render only when the breakpoint actually flips */
-let wasFlat=flat();
-addEventListener('resize',()=>{
-  if(flat()===wasFlat) return;
-  wasFlat=flat();
-  renderCats();
-  $$('#cats .rv').forEach(el=>el.classList.add('in'));
-},{passive:true});
 
 function renderCopy(){
   $$('[data-t]').forEach(el=>{
