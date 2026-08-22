@@ -772,14 +772,19 @@ body.on-dark .bar-l em{color:rgba(255,255,255,.52)}
 
 /* h1: text-4xl font-medium tracking-tight, sm:5xl md:6xl lg:7xl, text-background(white) */
 .hero-h1{
-  margin:0;color:#fff;max-width:100%;
+  margin:0;color:#FFF1E9;max-width:100%;
   font-size:clamp(36px,11.5vw,48px);
   line-height:.94;                 /* display line-height, tuned per breakpoint */
   letter-spacing:-.042em;
   /* Citadel's swashes reach past the glyph box on both sides, so the block
-     carries its own bleed and gives it back with a negative margin */
+     carries its own bleed; the container is sized to the longest line and
+     centred, which puts the headline's mass on the folder's axis */
   padding:.1em .2em .16em .17em;
-  margin-left:-.17em;margin-right:-.2em;
+  /* fitted to the measured ink width at each viewport so the left and right
+     gutters come out even and the block's mass lands on the folder's axis */
+  width:min(calc(70vw + 44px),344px);
+  margin-inline:auto;
+  text-align:left;
 }
 .hero-h1 .hl{display:block;white-space:nowrap}
 /* Inter Black, tight editorial tracking */
@@ -792,10 +797,10 @@ body.on-dark .bar-l em{color:rgba(255,255,255,.52)}
 .hero-h1 i{
   font-family:'Citadel Script','Citadel Script Std',Georgia,serif;
   font-style:normal;font-weight:400;
-  font-size:1.34em;line-height:0;
+  font-size:1.4em;line-height:0;
   letter-spacing:-.012em;
   margin-right:-.06em;margin-left:-.03em;
-  color:rgba(255,255,255,.94);
+  color:#FFE9DD;
 }
 /* a script word leading a line has to reach across its exit stroke to meet
    the Inter; one closing a line only needs its swash cleared */
@@ -1091,7 +1096,8 @@ body.is-open .hero{position:fixed;inset:0;opacity:0;visibility:hidden;pointer-ev
     background:radial-gradient(50% 50% at 50% 44%,
       rgba(24,7,2,.6) 0%,rgba(24,7,2,.4) 38%,rgba(24,7,2,.14) 66%,rgba(24,7,2,0) 80%)}
   .hero-note{text-align:left}
-  .hero-h1{font-size:clamp(48px,6.4vw,60px);line-height:.92;letter-spacing:-.046em}
+  .hero-h1{font-size:clamp(48px,6.4vw,60px);line-height:.92;letter-spacing:-.046em;
+    width:auto;margin-inline:0}
   .hero-foot{padding:0 24px}
 }
 /* ---- md: 768px ---- */
@@ -1101,7 +1107,7 @@ body.is-open .hero{position:fixed;inset:0;opacity:0;visibility:hidden;pointer-ev
   .hero-in{padding:calc(150px + env(safe-area-inset-top)) 32px
     calc(170px + env(safe-area-inset-bottom));gap:40px}
   .hero-h1{font-size:clamp(56px,4.9vw,72px);line-height:.9;letter-spacing:-.05em}
-  .hero-h1 i{font-size:1.38em}
+  .hero-h1 i{font-size:1.44em}
   .hero-foot{padding:0 32px}
 }
 @media (prefers-reduced-motion:reduce){
