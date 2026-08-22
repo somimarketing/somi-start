@@ -657,11 +657,184 @@ body.pill-on .pill{opacity:1;transform:none;pointer-events:auto}
   *{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}
   .wi{transform:none!important}
 }
+
+/* ==================================================================
+   v2 — offer-first flow (Aug 2026)
+   order: offer summary > what's inside > proof > how it works > close
+   ================================================================== */
+
+/* ---------- 01 · offer summary ---------- */
+.offer{padding:calc(86px + env(safe-area-inset-top)) 0 clamp(30px,6vh,54px)}
+.offer h1{margin:14px 0 0;font-weight:900;letter-spacing:-.055em;line-height:.98;
+  font-size:clamp(33px,9.8vw,58px)}
+.offer .lede{margin-top:15px;max-width:30ch;font-size:15px;color:var(--ink-2)}
+
+.deal{display:flex;align-items:center;gap:13px;flex-wrap:wrap;margin:24px 0 0;
+  padding:14px 0 0;border-top:1px solid var(--hair)}
+.deal>span{display:flex;align-items:baseline;gap:6px;font-size:12.5px;font-weight:600;color:var(--ink-2)}
+.deal b{font-size:17px;font-weight:800;letter-spacing:-.04em;color:var(--ink);font-variant-numeric:tabular-nums}
+.deal>span:first-child b{color:var(--signal)}
+.deal i{width:3px;height:3px;border-radius:50%;background:var(--ink-3);opacity:.55;flex:none}
+
+.pricebox{display:flex;align-items:flex-end;gap:11px;flex-wrap:wrap;margin:22px 0 0}
+.pb-amt{font-weight:900;font-size:clamp(40px,12vw,62px);letter-spacing:-.062em;line-height:.88;
+  font-variant-numeric:tabular-nums}
+.pb-unit{display:flex;flex-direction:column;gap:3px;padding-bottom:6px;
+  font-size:9.5px;font-weight:700;letter-spacing:.19em;text-transform:uppercase;color:var(--ink-3)}
+.pb-unit em{font-style:normal;color:var(--signal)}
+.pb-was{order:-1;flex-basis:100%;margin-bottom:4px;font-size:11.5px;font-weight:600;letter-spacing:.02em;color:var(--ink-3)}
+.pb-was s{text-decoration:line-through;text-decoration-color:var(--signal);text-decoration-thickness:1.5px}
+
+.offer .acts-cta{margin-top:22px}
+.jump{display:inline-flex;align-items:center;gap:7px;margin:15px 0 0;padding:8px 0;
+  background:none;border:0;cursor:pointer;color:var(--ink-2);
+  font:600 13px/1 Inter,system-ui,sans-serif;letter-spacing:-.012em;
+  border-bottom:1px solid var(--hair);transition:color .3s var(--ease),border-color .3s var(--ease)}
+.jump:hover{color:var(--ink);border-color:var(--ink)}
+.jump svg{width:13px;height:13px;stroke:var(--signal);stroke-width:2.5;fill:none;
+  stroke-linecap:round;stroke-linejoin:round;animation:nudge 2.6s var(--ease) infinite}
+@keyframes nudge{0%,74%,100%{transform:none}84%{transform:translateY(3px)}}
+.jump:focus-visible{outline:2px solid var(--signal);outline-offset:4px}
+
+/* ---------- 02 · what's inside ---------- */
+.act2{scroll-margin-top:64px;background:var(--sand2);
+  padding:clamp(36px,6.5vh,64px) 0 clamp(32px,5.5vh,56px)}
+.act2 .lede{max-width:34ch}
+.cats{display:flex;flex-direction:column;gap:10px;margin-top:clamp(24px,5.5vw,36px)}
+.cat{background:var(--paper);border:1px solid var(--hair);border-radius:18px;position:relative;scroll-margin-top:74px;
+  transition:border-color .35s var(--ease),box-shadow .45s var(--ease)}
+.cat::before{content:"";position:absolute;left:14px;right:14px;bottom:-5px;height:14px;z-index:-1;
+  border-radius:0 0 16px 16px;background:var(--paper);border:1px solid var(--hair);border-top:0;
+  opacity:.9;transition:opacity .4s var(--ease),transform .45s var(--sp)}
+.cat.open{border-color:rgba(14,14,13,.88);box-shadow:0 24px 50px -32px rgba(14,14,13,.55)}
+.cat.open::before{opacity:0;transform:translateY(-6px)}
+.cat-head{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:13px;
+  width:100%;padding:15px 16px;background:none;border:0;cursor:pointer;text-align:left;
+  -webkit-tap-highlight-color:transparent;border-radius:18px}
+.cat-n{font-size:10px;font-weight:800;letter-spacing:.16em;color:var(--ink-3);
+  font-variant-numeric:tabular-nums;transition:color .3s var(--ease)}
+.cat.open .cat-n{color:var(--signal)}
+.cat-t{min-width:0}
+.cat-t b{display:block;font-size:18px;font-weight:800;letter-spacing:-.035em;line-height:1.14}
+.cat-t i{display:block;margin-top:3px;font-style:normal;font-size:11.5px;font-weight:600;color:var(--ink-3);
+  transition:color .3s var(--ease)}
+.cat.open .cat-t i{color:var(--signal)}
+.cat-art{font-size:15px;display:block}
+.cat .gi-art{display:block;width:2.6em;height:2.6em;opacity:.92;
+  transition:transform .45s var(--sp),opacity .35s var(--ease)}
+.cat .gi-back,.cat .gi-front{border-radius:.82em}
+.cat .gi-ic{width:1.16em;height:1.16em}
+.cat.open .gi-art{opacity:1}
+.cat.open .gi-back{transform:rotate(26deg) translate3d(-.42em,-.42em,.4em)}
+.cat.open .gi-front{transform:translate3d(0,0,1.5em)}
+.cat-sign{width:12px;height:12px;position:relative;flex:none;margin-left:5px}
+.cat-sign::before,.cat-sign::after{content:"";position:absolute;background:var(--ink-3);border-radius:2px;
+  transition:.42s var(--sp)}
+.cat-sign::before{left:0;right:0;top:5.2px;height:1.6px}
+.cat-sign::after{top:0;bottom:0;left:5.2px;width:1.6px}
+.cat.open .cat-sign::after{transform:scaleY(0)}
+.cat.open .cat-sign::before{background:var(--ink)}
+.cat-head:focus-visible{outline:2px solid var(--signal);outline-offset:-3px}
+.cat-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--ease)}
+.cat.open .cat-body{grid-template-rows:1fr}
+.cat-body>div{overflow:hidden;min-height:0}
+.cat-in{margin:0 16px;padding-top:2px;border-top:1px solid var(--hair-2)}
+.cat .doc-list{padding:0;border-top:0}
+.cat-close{display:inline-flex;align-items:center;gap:7px;margin:2px 0 14px;padding:8px 0;
+  background:none;border:0;cursor:pointer;color:var(--ink-3);
+  font:700 9.5px/1 Inter,system-ui,sans-serif;letter-spacing:.18em;text-transform:uppercase;
+  transition:color .3s var(--ease)}
+.cat-close:hover{color:var(--ink)}
+.cat-close svg{width:12px;height:12px;stroke:currentColor;stroke-width:2.5;fill:none;
+  stroke-linecap:round;stroke-linejoin:round}
+.cat-close:focus-visible{outline:2px solid var(--signal);outline-offset:3px}
+
+/* ---------- 03 · proof ---------- */
+.warm{background:var(--paper);padding:clamp(26px,5vw,40px) 0}
+.warm .proof{margin:0;padding:16px 0 18px;
+  border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+
+/* ---------- 04 · how it works ---------- */
+.steps-sec{padding:clamp(30px,5.5vh,56px) 0 clamp(36px,6.5vh,66px)}
+.steps{display:flex;flex-direction:column;margin-top:clamp(22px,5vw,34px);border-top:1px solid var(--hair)}
+.step{display:grid;grid-template-columns:auto 1fr;gap:16px;padding:20px 0;border-bottom:1px solid var(--hair)}
+.step b{font-size:10px;font-weight:800;letter-spacing:.16em;color:var(--signal);
+  font-variant-numeric:tabular-nums;padding-top:4px}
+.step h3{margin:0 0 5px;font-size:17px;font-weight:700;letter-spacing:-.032em;line-height:1.2}
+.step p{margin:0;font-size:14.5px;line-height:1.45;color:var(--ink-2);max-width:42ch}
+
+/* ---------- 05 · close ---------- */
+.act3{min-height:auto;
+  padding:clamp(58px,11vh,98px) 0 calc(clamp(34px,6vh,60px) + env(safe-area-inset-bottom) + 58px)}
+.act3 h2{font-size:clamp(27px,7.2vw,46px);max-width:15ch;letter-spacing:-.05em;line-height:1.04}
+.lp1{font-size:1em;line-height:1.04;margin-bottom:0}
+.close-price{display:flex;align-items:flex-end;gap:11px;margin:26px 0 0}
+.close-price b{font-weight:900;font-size:clamp(34px,10vw,50px);letter-spacing:-.062em;line-height:.88;
+  color:#fff;font-variant-numeric:tabular-nums}
+.close-price span{display:flex;flex-direction:column;gap:3px;padding-bottom:5px;
+  font-size:9.5px;font-weight:700;letter-spacing:.19em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+.close-price span em{font-style:normal;color:var(--signal)}
+.act3 .acts-cta{margin-top:24px}
+.act3-mark{margin-top:34px}
+.fade{display:none}
+
+/* ---------- sticky offer bar ---------- */
+.bar{position:fixed;left:0;right:0;bottom:0;z-index:36;pointer-events:none;
+  transform:translateY(130%);transition:transform .55s var(--sp);
+  padding:0 var(--pad) calc(10px + env(safe-area-inset-bottom))}
+body.bar-on .bar{transform:none}
+body.bar-on .bar .bar-in{pointer-events:auto}
+.bar-in{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:8px 8px 8px 16px;border-radius:999px;
+  background:rgba(252,252,250,.86);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%);
+  border:1px solid rgba(14,14,13,.07);
+  box-shadow:0 20px 44px -24px rgba(14,14,13,.55),0 1px 0 0 rgba(255,255,255,.7) inset;
+  transition:background .45s var(--ease),border-color .45s var(--ease)}
+body.on-dark .bar-in{background:rgba(26,26,24,.82);border-color:rgba(255,255,255,.1);
+  box-shadow:0 20px 44px -24px rgba(0,0,0,.7),0 1px 0 0 rgba(255,255,255,.06) inset}
+.bar-l{display:flex;flex-direction:column;gap:2px;min-width:0}
+.bar-l b{font-size:13px;font-weight:700;letter-spacing:-.03em;color:var(--ink);white-space:nowrap;
+  transition:color .45s var(--ease)}
+.bar-l em{font-style:normal;font-size:11.5px;font-weight:600;letter-spacing:-.012em;color:var(--ink-3);
+  white-space:nowrap;transition:color .45s var(--ease)}
+body.on-dark .bar-l b{color:#fff}
+body.on-dark .bar-l em{color:rgba(255,255,255,.52)}
+.bar .btn{padding:10px 15px;font-size:13px;flex:none;border-radius:999px}
+
+/* ---------- desktop ---------- */
+@media (min-width:900px){
+  .offer{padding-top:150px}
+  .offer .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:end}
+  .offer h1{font-size:clamp(44px,4.5vw,62px)}
+  .offer .lede{max-width:34ch}
+  .offer .deal{margin-top:0}
+  .offer .acts-cta{flex-direction:row}
+  .offer .acts-cta .btn{width:auto}
+  .cats{max-width:800px}
+  .cat-head{padding:20px 24px;gap:18px}
+  .cat-t b{font-size:21px}
+  .cat-t i{font-size:12.5px}
+  .cat-art{font-size:19px}
+  .cat-in{margin:0 24px}
+  .cat .doc-list{columns:2;column-gap:42px}
+  .cat .doc-list li{break-inside:avoid}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);column-gap:34px}
+  .step{border-bottom:0;padding:26px 0}
+  .act3 .wrap{align-items:start}
+  .act3 .acts-cta{flex-direction:row;margin-top:26px}
+  .bar{left:auto;right:var(--pad);width:min(400px,40vw);padding-bottom:18px}
+}
+@media (max-width:899px){
+  .offer .acts-cta{flex-direction:column;align-items:stretch}
+  .offer .acts-cta .btn{width:100%}
+}
+
 </style>
 
 </head>
 <body>
-<div class="prog id="prog"></div>
+<div class="prog" id="prog"></div>
 
 <header class="hdr">
   <button class="brand" id="brand" type="button" aria-label="Cerrar carpeta">
@@ -740,33 +913,51 @@ body.pill-on .pill{opacity:1;transform:none;pointer-events:auto}
 </section>
 
 <main class="acts" id="acts">
-  <section class="act1">
+
+  <!-- 01 · the deal, in one screen -->
+  <section class="offer">
     <div class="wrap">
-      <div class="a1-l">
+      <div class="o-l">
         <p class="eyebrow rv">SOMI START</p>
         <h1 class="rv" data-lines data-t="h1"><span class="ln"><i>Todo lo que tu</i></span><span class="ln"><i>negocio necesita</i></span><span class="ln"><i>en línea.</i></span></h1>
-        <p class="lede rv" data-d="2" data-t="lede1">Para verse mejor, crecer y mantenerse activo. Un paquete que instalamos, operamos y mantenemos cada mes.</p>
+        <p class="lede rv" data-d="2" data-t="lede1">Lo instalamos, lo operamos y lo mantenemos cada mes. Tú solo atiendes a los clientes que llegan.</p>
       </div>
-      <div class="a1-r">
-        <div class="spec rv" data-d="3">
-          <div><b data-num="14">0</b><span data-t="sp1">Servicios</span></div>
-          <div><b data-num="04">00</b><span data-t="sp2">Áreas</span></div>
-          <div><b data-num="01">00</b><span data-t="sp3">Paquete</span></div>
+      <div class="o-r">
+        <div class="deal rv" data-d="2">
+          <span><b>14</b><span data-t="d1">servicios</span></span><i></i>
+          <span><b>4</b><span data-t="d2">áreas</span></span><i></i>
+          <span><b>1</b><span data-t="d3">paquete</span></span>
         </div>
-        <div class="acts-cta rv" data-d="4">
+        <div class="pricebox rv" data-d="3">
+          <span class="pb-amt">$9,999</span>
+          <span class="pb-unit"><span>MXN</span><em data-t="permes">/ mes</em></span>
+          <span class="pb-was" data-t="was">Valor <s>$24,000</s></span>
+        </div>
+        <div class="acts-cta rv" data-d="3">
           <a class="btn btn-p mag" href="https://wa.somi.city/hola" target="_blank" rel="noopener" data-cta>
-            <span data-t="cta1">Empezar</span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            <span data-t="cta1">Empezar</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
-          <button class="btn btn-g mag" type="button" id="seeAll">
-            <span data-t="cta2">Ver todo lo incluido</span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
-          </button>
         </div>
+        <button class="jump rv" data-d="4" type="button" id="seeAll">
+          <span data-t="cta2">Ver los 14 servicios</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+        </button>
       </div>
     </div>
   </section>
 
+  <!-- 02 · what is inside -->
+  <section class="act2" id="docs">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow rv" data-t="eb2">LO QUE HAY ADENTRO</p>
+        <h2 class="rv" data-split data-t="h2a">Cuatro áreas. <span class="mut">Catorce servicios.</span></h2>
+        <p class="lede rv" data-d="2" data-t="lede2">Toca cada área para ver exactamente qué incluye.</p>
+      </div>
+      <div class="cats rv" data-d="2" id="cats"></div>
+    </div>
+  </section>
+
+  <!-- 03 · proof -->
   <section class="warm">
     <div class="wrap">
       <div class="proof rv">
@@ -776,46 +967,34 @@ body.pill-on .pill{opacity:1;transform:none;pointer-events:auto}
     </div>
   </section>
 
-  <section class="act2" id="docs">
+  <!-- 04 · how it works -->
+  <section class="steps-sec">
     <div class="wrap">
-      <div class="head">
-        <p class="eyebrow rv" data-t="eb2">LO QUE HAY ADENTRO</p>
-        <h2 class="rv" data-split data-t="h2a">Cuatro documentos. <span class="mut">Catorce servicios.</span></h2>
-        <p class="lede rv" data-d="2" data-t="lede2">Toca cada uno para ver exactamente qué incluye.</p>
-      </div>
-      <div class="gi" id="giGrid" role="tablist" aria-label="Documentos"></div>
-      <div class="gi-panel"><div id="giPanel"></div></div>
-
-      <div class="band rv">
-        <p data-t="band">Empieza con una llamada corta. Nosotros te decimos qué activar primero.</p>
-        <a class="btn btn-p mag" href="https://wa.somi.city/hola" target="_blank" rel="noopener" data-cta>
-          <span data-t="cta1b">Empezar</span>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
+      <p class="eyebrow rv" data-t="ebSteps">CÓMO EMPIEZA</p>
+      <h2 class="rv" data-split data-t="hSteps">Tú empiezas hoy. <span class="mut">Nosotros hacemos el resto.</span></h2>
+      <div class="steps rv" data-d="2">
+        <div class="step"><b>01</b><div><h3 data-t="s1t">Una llamada corta</h3><p data-t="s1p">Nos cuentas de tu negocio. Te decimos qué activar primero.</p></div></div>
+        <div class="step"><b>02</b><div><h3 data-t="s2t">Lo instalamos todo</h3><p data-t="s2p">Sitio, perfiles, contenido, automatizaciones y captación. Sin que muevas un dedo.</p></div></div>
+        <div class="step"><b>03</b><div><h3 data-t="s3t">Lo mantenemos activo</h3><p data-t="s3p">Publicaciones, respuestas y reporte cada mes. Tu negocio nunca se apaga.</p></div></div>
       </div>
     </div>
   </section>
 
-  <section class="act-big">
-    <div class="wrap">
-      <p class="eyebrow rv" data-t="ebBig">SOMI START</p>
-      <h2 class="big rv" data-lines data-t="big"><span class="ln"><i>14 servicios.</i></span><span class="ln"><i>Una sola mensualidad.</i></span><span class="ln"><i><span class="mut">Nosotros lo mantenemos.</span></i></span></h2>
-    </div>
-  </section>
-
+  <!-- 05 · close -->
   <section class="act3">
     <div class="act3-shape" aria-hidden="true"></div>
     <div class="wrap">
       <div>
         <p class="eyebrow rv" data-t="eb3">SOMI START</p>
-        <h2 class="rv lit" data-lit data-t="h3a">Tu negocio no necesita más herramientas.|Necesita que alguien las haga funcionar.</h2>
-        <p class="lede rv" data-d="2" data-t="lede3">Somi instala, conecta, automatiza y mantiene todo por ti.</p>
+        <h2 class="rv lit" data-lit data-t="h3a">14 servicios.|Una mensualidad.|Nosotros lo mantenemos funcionando.</h2>
       </div>
-      <div class="rv" data-d="3">
+      <div class="rv" data-d="2">
+        <div class="close-price">
+          <b>$9,999</b><span><span>MXN</span><em data-t="permes2">/ mes</em></span>
+        </div>
         <div class="acts-cta">
           <a class="btn btn-w mag" href="https://wa.somi.city/hola" target="_blank" rel="noopener" data-cta>
-            <span data-t="cta3">Empezar con Somi Start</span>
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            <span data-t="cta3">Empezar con Somi Start</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
           </a>
           <button class="btn btn-o mag" type="button" id="closeAll" data-t="cta4">Cerrar carpeta</button>
         </div>
@@ -825,11 +1004,11 @@ body.pill-on .pill{opacity:1;transform:none;pointer-events:auto}
   </section>
 </main>
 
-<div class="fade" aria-hidden="true"></div>
-
-<div class="pill" id="pill">
-  <a href="https://wa.somi.city/hola" target="_blank" rel="noopener"><i></i><span data-t="cta1c">Empezar</span>
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+<div class="bar" id="bar">
+  <div class="bar-in">
+    <span class="bar-l"><b>Somi Start</b><em><span>$9,999</span> <span data-t="permes3">MXN / mes</span></em></span>
+    <a class="btn btn-p" href="https://wa.somi.city/hola" target="_blank" rel="noopener"><span data-t="cta1c">Empezar</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
 </div>
 
 <script>
@@ -888,35 +1067,49 @@ const DATA = {
   ]
 };
 const COPY = {
-  es:{tap:'Toca para abrir',gf1:'14 servicios',gf2:'1 paquete',back:'Cerrar',
+  es:{
+      d1:'servicios',d2:'áreas',d3:'paquete',permes:'/ mes',permes2:'/ mes',permes3:'MXN / mes',
+      was:'Valor <s>$24,000</s>',cerrar:'Cerrar',
+      ebSteps:'CÓMO EMPIEZA',hSteps:'Tú empiezas hoy. <span class="mut">Nosotros hacemos el resto.</span>',
+      s1t:'Una llamada corta',s1p:'Nos cuentas de tu negocio. Te decimos qué activar primero.',
+      s2t:'Lo instalamos todo',s2p:'Sitio, perfiles, contenido, automatizaciones y captación. Sin que muevas un dedo.',
+      s3t:'Lo mantenemos activo',s3p:'Publicaciones, respuestas y reporte cada mes. Tu negocio nunca se apaga.',
+      tap:'Toca para abrir',gf1:'14 servicios',gf2:'1 paquete',back:'Cerrar',
       h1:'Todo lo que tu|negocio necesita|en línea.',
-      lede1:'Para verse mejor, crecer y mantenerse activo. Un paquete que instalamos, operamos y mantenemos cada mes.',
+      lede1:'Lo instalamos, lo operamos y lo mantenemos cada mes. Tú solo atiendes a los clientes que llegan.',
       sp1:'Servicios',sp2:'Áreas',sp3:'Paquete',cta1:'Empezar',cta1b:'Empezar',cta1c:'Empezar',
-      cta2:'Ver todo lo incluido',eb2:'LO QUE HAY ADENTRO',
-      h2a:'Cuatro documentos. <span class="mut">Catorce servicios.</span>',
-      lede2:'Toca cada uno para ver exactamente qué incluye.',
+      cta2:'Ver los 14 servicios',eb2:'LO QUE HAY ADENTRO',
+      h2a:'Cuatro áreas. <span class="mut">Catorce servicios.</span>',
+      lede2:'Toca cada área para ver exactamente qué incluye.',
       band:'Empieza con una llamada corta. Nosotros te decimos qué activar primero.',
       eb3:'SOMI START',
       lede3:'Somi instala, conecta, automatiza y mantiene todo por ti.',
       cta3:'Empezar con Somi Start',cta4:'Cerrar carpeta',proof:'Negocios que ya trabajan con Somi',
       ebBig:'SOMI START',big:'14 servicios.|Una sola mensualidad.|<span class="mut">Nosotros lo mantenemos.</span>',
       tag:'Sistemas Optimizados para Marketing Inteligente',
-      h3a:'Tu negocio no necesita más herramientas.|Necesita que alguien las haga funcionar.',
+      h3a:'14 servicios.|Una mensualidad.|Nosotros lo mantenemos funcionando.',
       svc:'servicios',open:'Abrir la carpeta',close:'Cerrar carpeta'},
-  en:{tap:'Tap to open',gf1:'14 services',gf2:'1 package',back:'Close',
+  en:{
+      d1:'services',d2:'areas',d3:'package',permes:'/ mo',permes2:'/ mo',permes3:'MXN / mo',
+      was:'Value <s>$24,000</s>',cerrar:'Close',
+      ebSteps:'HOW IT STARTS',hSteps:'You start today. <span class="mut">We do the rest.</span>',
+      s1t:'One short call',s1p:'Tell us about your business. We tell you what to switch on first.',
+      s2t:'We install all of it',s2p:'Site, profiles, content, automations, and lead capture. You do nothing.',
+      s3t:'We keep it running',s3p:'Posts, replies, and a report every month. Your business never goes quiet.',
+      tap:'Tap to open',gf1:'14 services',gf2:'1 package',back:'Close',
       h1:'Everything your|business needs|online.',
-      lede1:'To look better, grow, and stay active. One package we install, run, and maintain every month.',
+      lede1:'We install it, run it, and maintain it every month. You just handle the customers who show up.',
       sp1:'Services',sp2:'Areas',sp3:'Package',cta1:'Get started',cta1b:'Get started',cta1c:'Get started',
-      cta2:'See everything included',eb2:'WHAT IS INSIDE',
-      h2a:'Four documents. <span class="mut">Fourteen services.</span>',
-      lede2:'Tap each one to see exactly what it includes.',
+      cta2:'See all 14 services',eb2:'WHAT IS INSIDE',
+      h2a:'Four areas. <span class="mut">Fourteen services.</span>',
+      lede2:'Tap each area to see exactly what it includes.',
       band:'Start with a short call. We tell you what to switch on first.',
       eb3:'SOMI START',
       lede3:'Somi installs, connects, automates, and maintains all of it for you.',
       cta3:'Start with Somi Start',cta4:'Close the folder',proof:'Businesses already working with Somi',
       ebBig:'SOMI START',big:'14 services.|One monthly fee.|<span class="mut">We keep it running.</span>',
       tag:'Sistemas Optimizados para Marketing Inteligente',
-      h3a:'Your business does not need more tools.|It needs someone to make them work.',
+      h3a:'14 services.|One monthly fee.|We keep it running.',
       svc:'services',open:'Open the folder',close:'Close the folder'}
 };
 
@@ -975,7 +1168,7 @@ function paintLit(){
   const n=words.length;
   words.forEach((w,i)=>{
     const t=Math.max(0,Math.min(1,p*n*1.15 - i));
-    const dim=w.parentElement && w.parentElement.classList.contains('lp1')?0.52:1;
+    const dim=1;
     const a=(0.16+t*0.84)*dim;
     w.style.color='rgba(255,255,255,'+a.toFixed(3)+')';
   });
@@ -997,55 +1190,60 @@ function renderMarquee(){
   $('#mqTrack').innerHTML=set+set;
 }
 
-/* ---------- render ---------- */
-let activeDoc='presencia', showAll=false;
+/* ---------- render : category accordion ---------- */
+let openCat=null;
+const ROT=[-5,4,6,-3];
 
-function cardHTML(d){
-  const n=DATA[lang].findIndex(x=>x.k===d.k)+1, nn=String(n).padStart(2,'0');
-  return `<article class="gi-card" data-k="${d.k}">
-    <header>
-      <span class="idx">${nn}</span>
-      <span></span>
-      <span class="pg">${nn} / 04</span>
-      <h3 class="t">${d.t}</h3>
-    </header>
-    <ul class="doc-list">${d.items.map((it,i)=>`
-      <li style="--i:${i}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.6l5.1 5.1L20 6.9"/></svg>
-      <div><h3>${it[0]}</h3><p>${it[1]}</p></div></li>`).join('')}</ul>
-    <footer><img src="data:image/png;base64,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" alt=""><span>Somi Start &middot; ${d.items.length} ${COPY[lang].svc}</span></footer>
-  </article>`;
+function catHTML(d,i){
+  const nn=String(i+1).padStart(2,'0'), on=d.k===openCat;
+  const items=d.items.map(it=>
+    `<li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12.6l5.1 5.1L20 6.9"/></svg>
+      <div><h3>${it[0]}</h3><p>${it[1]}</p></div></li>`).join('');
+  return `<div class="cat${on?' open':''}" data-k="${d.k}">
+    <button class="cat-head" type="button" aria-expanded="${on}" aria-controls="cb-${d.k}">
+      <span class="cat-n">${nn}</span>
+      <span class="cat-t"><b>${d.t}</b><i>${d.items.length} ${COPY[lang].svc}</i></span>
+      <span class="cat-art" aria-hidden="true"><span class="gi-art" style="--rot:${ROT[i]}deg">
+        <span class="gi-back" style="background:${TINT[d.k]}"></span>
+        <span class="gi-front"><span class="gi-ic"><svg viewBox="0 0 24 24">${IC[d.k]}</svg></span></span>
+      </span></span>
+      <span class="cat-sign" aria-hidden="true"></span>
+    </button>
+    <div class="cat-body" id="cb-${d.k}"><div><div class="cat-in">
+      <ul class="doc-list">${items}</ul>
+      <button class="cat-close" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>${COPY[lang].cerrar}
+      </button>
+    </div></div></div>
+  </div>`;
 }
-function renderPanel(){
-  const list = showAll ? DATA[lang] : DATA[lang].filter(d=>d.k===activeDoc);
-  const el=$('#giPanel');
-  el.innerHTML = list.map(cardHTML).join('');
-  requestAnimationFrame(()=>{
-    $$('#giPanel .gi-card').forEach((c,i)=>{
-      c.style.transitionDelay=(i*0.06)+'s';
-      requestAnimationFrame(()=>c.classList.add('in'));
-    });
-    $$('#giPanel .doc-list li').forEach(li=>li.style.opacity='');
+
+function setCat(el,on){
+  $$('#cats .cat').forEach(x=>{
+    const o = x===el && on;
+    x.classList.toggle('open',o);
+    x.querySelector('.cat-head').setAttribute('aria-expanded',String(o));
   });
+  openCat = on ? el.dataset.k : null;
 }
-function renderDocs(){
-  $('#giGrid').innerHTML = DATA[lang].map(d=>`
-    <button class="gi-btn${d.k===activeDoc&&!showAll?' on':''}" type="button" data-k="${d.k}"
-            role="tab" aria-selected="${d.k===activeDoc&&!showAll}" aria-label="${d.t}">
-      <span class="gi-art"><span class="gi-back"></span>
-      <span class="gi-front"><span class="gi-ic"><svg viewBox="0 0 24 24" aria-hidden="true">${IC[d.k]}</svg></span></span></span>
-      <span class="gi-lab"><b>${d.t}</b><i>${d.items.length} ${COPY[lang].svc}</i></span>
-    </button>`).join('');
-  $$('.gi-btn').forEach(b=>b.addEventListener('click',()=>{
-    activeDoc=b.dataset.k; showAll=false;
-    $$('.gi-btn').forEach(x=>{
-      const on = x.dataset.k===activeDoc;
-      x.classList.toggle('on',on); x.setAttribute('aria-selected',String(on));
+
+function renderCats(){
+  const box=$('#cats'); if(!box) return;
+  box.innerHTML = DATA[lang].map(catHTML).join('');
+  $$('#cats .cat').forEach(c=>{
+    c.querySelector('.cat-head').addEventListener('click',()=>{
+      const on=!c.classList.contains('open');
+      setCat(c,on);
+      if(on) setTimeout(()=>c.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'}),90);
     });
-    renderPanel();
-  }));
-  renderPanel();
+    c.querySelector('.cat-close').addEventListener('click',()=>{
+      setCat(c,false);
+      c.scrollIntoView({behavior:reduce?'auto':'smooth',block:'center'});
+    });
+  });
   observe();
 }
+
 function renderCopy(){
   $$('[data-t]').forEach(el=>{
     const v=COPY[lang][el.dataset.t]; if(v==null) return;
@@ -1086,7 +1284,7 @@ function setOpen(on){
       setTimeout(()=>body.classList.remove('opening'),700);
     }, reduce?0:460);
   }else{
-    body.classList.remove('is-open','pill-on','scrolled');
+    body.classList.remove('is-open','bar-on','scrolled');
     folder.setAttribute('aria-expanded','false');
     window.scrollTo(0,0);
   }
@@ -1100,9 +1298,7 @@ folder.addEventListener('click',()=>{
 $('#brand').addEventListener('click',()=>{ if(body.classList.contains('is-open')) setOpen(false); });
 $('#closeAll').addEventListener('click',()=>setOpen(false));
 $('#seeAll').addEventListener('click',()=>{
-  showAll=true;
-  $$('.gi-btn').forEach(x=>{x.classList.remove('on');x.setAttribute('aria-selected','false');});
-  renderPanel();
+  const first=$('#cats .cat'); if(first) setCat(first,true);
   $('#docs').scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
 });
 addEventListener('keydown',e=>{ if(e.key==='Escape'&&body.classList.contains('is-open')) setOpen(false); });
@@ -1111,7 +1307,7 @@ addEventListener('keydown',e=>{ if(e.key==='Escape'&&body.classList.contains('is
 $$('.lang button').forEach(b=>b.addEventListener('click',()=>{
   lang=b.dataset.lang;
   $$('.lang button').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));
-  renderCopy(); renderDocs();
+  renderCopy(); renderCats();
   $$('.rv').forEach(el=>el.classList.add('in'));
 }));
 
@@ -1136,7 +1332,7 @@ if(!reduce && matchMedia('(hover:hover)').matches){
 }
 
 /* ---------- scroll: progress, header, pill ---------- */
-const prog=$('#prog'), pill=$('#pill');
+const prog=$('#prog');
 let ticking=false;
 function onScroll(){
   if(ticking) return; ticking=true;
@@ -1153,11 +1349,11 @@ if('IntersectionObserver' in window){
   const seen=new Set();
   const cio=new IntersectionObserver(es=>{
     es.forEach(e=>e.isIntersecting?seen.add(e.target):seen.delete(e.target));
-    body.classList.toggle('pill-on', body.classList.contains('is-open') && seen.size===0 && scrollY>innerHeight*.4);
+    body.classList.toggle('bar-on', body.classList.contains('is-open') && seen.size===0 && scrollY>innerHeight*.34);
   },{threshold:.35});
   $$('[data-cta]').forEach(el=>cio.observe(el));
   addEventListener('scroll',()=>{
-    body.classList.toggle('pill-on', body.classList.contains('is-open') && seen.size===0 && scrollY>innerHeight*.4);
+    body.classList.toggle('bar-on', body.classList.contains('is-open') && seen.size===0 && scrollY>innerHeight*.34);
   },{passive:true});
 }
 
@@ -1197,7 +1393,7 @@ if('IntersectionObserver' in window){
   requestAnimationFrame(tick);
 })();
 
-renderCopy(); renderDocs(); renderMarquee(); paintLit();
+renderCopy(); renderCats(); renderMarquee(); paintLit();
 addEventListener('resize',paintLit,{passive:true});
 </script>
 
