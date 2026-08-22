@@ -116,7 +116,22 @@ body.is-open .prog{opacity:1}
 /* the folder-graphic gate was replaced by the template hero above */
 
 /* ================= acts ================= */
-.acts{opacity:0;visibility:hidden;transition:opacity .5s var(--ease) .12s,visibility .5s}
+.acts{position:relative;opacity:0;visibility:hidden;
+  transition:opacity .5s var(--ease) .12s,visibility .5s}
+.acts>section{position:relative;z-index:1}
+
+/* ambient continuation of the hero field */
+.acts-grad{
+  position:absolute;top:0;left:-20%;right:-20%;height:min(1580px,62%);
+  z-index:0;pointer-events:none;overflow:hidden;
+  filter:blur(clamp(60px,8vw,130px));
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 58%,rgba(0,0,0,.45) 80%,transparent 100%);
+  mask-image:linear-gradient(to bottom,#000 0%,#000 58%,rgba(0,0,0,.45) 80%,transparent 100%);
+}
+.ag{position:absolute;left:-16%;width:132%;height:46%;border-radius:50%;display:block}
+.ag.a1{top:-16%;background:#FFB79F}
+.ag.a2{top:6%;background:#FFD2C1}
+.ag.a3{top:30%;background:#FDE7DC}
 body.is-open .acts{opacity:1;visibility:visible}
 .wrap{width:100%;max-width:1120px;margin:0 auto;padding-inline:var(--pad)}
 
@@ -502,7 +517,7 @@ body.pill-on .pill{opacity:1;transform:none;pointer-events:auto}
 .jump:focus-visible{outline:2px solid var(--signal);outline-offset:4px}
 
 /* ---------- 02 · what's inside ---------- */
-.act2{scroll-margin-top:64px;background:var(--sand2);
+.act2{scroll-margin-top:64px;background:transparent;
   padding:clamp(36px,6.5vh,64px) 0 clamp(32px,5.5vh,56px)}
 .act2 .lede{max-width:34ch}
 .cats{display:flex;flex-direction:column;gap:10px;margin-top:clamp(24px,5.5vw,36px);
@@ -588,7 +603,7 @@ body.pill-on .pill{opacity:1;transform:none;pointer-events:auto}
 .cat-close:focus-visible{outline:2px solid var(--signal);outline-offset:3px}
 
 /* ---------- 03 · proof ---------- */
-.warm{background:var(--paper);padding:clamp(10px,2vw,18px) 0 clamp(40px,8vw,64px)}
+.warm{background:transparent;padding:clamp(10px,2vw,18px) 0 clamp(40px,8vw,64px)}
 .warm .proof{margin:0;padding:20px 0 22px;
   border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
 .warm .proof .lbl{margin-bottom:15px}
@@ -1166,6 +1181,15 @@ body.is-open .hero{position:fixed;inset:0;opacity:0;visibility:hidden;pointer-ev
 
 
 <main class="acts" id="acts">
+  <!-- the hero's field, carried into the opened experience: same four-ellipse
+       construction, softened so cards and body copy keep their contrast, and
+       faded out before the closing section takes over -->
+  <div class="acts-grad" aria-hidden="true">
+    <span class="ag a1"></span>
+    <span class="ag a2"></span>
+    <span class="ag a3"></span>
+  </div>
+
 
   <!-- 01 · the deal, in one screen -->
   <section class="offer">
