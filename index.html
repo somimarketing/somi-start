@@ -742,7 +742,6 @@ body.on-dark .bar-l em{color:rgba(255,255,255,.52)}
 .hero-h1{
   margin:0;color:#fff;font-weight:500;letter-spacing:-.025em;
   font-size:clamp(30px,8.6vw,38px);line-height:1.06;max-width:100%;
-  opacity:0;transform:translateY(20px);filter:blur(8px);
 }
 .hero-h1 span{display:block}
 .hero-h1 em{font-style:italic;color:rgba(255,255,255,.8)}
@@ -750,7 +749,6 @@ body.on-dark .bar-l em{color:rgba(255,255,255,.52)}
 /* the folder stage takes the panel's slot and its entry animation */
 .hero-stage{
   position:relative;width:100%;display:flex;flex-direction:column;align-items:center;
-  opacity:0;transform:translateY(30px);filter:blur(8px);
 }
 /* the folder is translucent orange glass. On the original cream card it read
    instantly; on the orange field it needs its own pocket of depth rather
@@ -951,7 +949,7 @@ body.opening .tap{opacity:0}
 .hero-foot{
   position:absolute;left:0;right:0;bottom:calc(96px + env(safe-area-inset-bottom));z-index:3;
   margin:0 auto;display:flex;max-width:896px;align-items:center;justify-content:space-between;
-  gap:20px;padding:0 16px;opacity:0;transform:translateY(20px);
+  gap:20px;padding:0 16px;
 }
 .hero-tag{margin:0;max-width:384px;font-size:14px;line-height:1.45;color:rgba(255,255,255,.6)}
 .hero-down{
@@ -961,6 +959,12 @@ body.opening .tap{opacity:0}
 .hero-down:hover{color:rgba(255,255,255,.9);transform:translateY(3px)}
 .hero-down svg{width:48px;height:48px;stroke:currentColor;stroke-width:1;fill:none;
   stroke-linecap:round;stroke-linejoin:round;display:block}
+
+/* the entry state applies only once JS has confirmed it can run it, so a
+   blocked or failed script leaves a readable hero rather than a blank one */
+body.js-anim .hero-h1{opacity:0;transform:translateY(20px);filter:blur(8px)}
+body.js-anim .hero-stage{opacity:0;transform:translateY(30px);filter:blur(8px)}
+body.js-anim .hero-foot{opacity:0;transform:translateY(20px)}
 
 /* entry reveal — the template's values, played once on load */
 body.hero-ready .hero-h1{
@@ -1395,6 +1399,7 @@ function lensMap(w,h,power,falloff){
 }
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const body=document.body, gate=$('#gate');
+body.classList.add('js-anim');
 const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 if(reduce) body.classList.add('no-motion');
 let lang='es';
@@ -1958,7 +1963,11 @@ let fluid=null;
 if(!reduce){
   try{ fluid = initFluid($('#heroFluid'), {r:1, g:0.286, b:0.165}); }catch(e){}
 }
-requestAnimationFrame(()=>requestAnimationFrame(()=>body.classList.add('hero-ready')));
+/* rAF for the smooth case, a timer as the backstop: rAF is suspended in a
+   background tab, and the hero must not sit invisible until it resumes */
+const showHero=()=>body.classList.add('hero-ready');
+requestAnimationFrame(()=>requestAnimationFrame(showHero));
+setTimeout(showHero,80);
 
 renderCopy(); renderCats(); renderMarquee(); paintLit();
 addEventListener('resize',paintLit,{passive:true});
