@@ -22,10 +22,27 @@
 <meta name="twitter:description" content="14 servicios. Una sola mensualidad. Nosotros lo mantenemos.">
 <meta name="twitter:image" content="https://start.somi.city/og.png">
 <title>somi start</title>
+<link rel="preload" as="font" type="font/woff2" href="/fonts/Inter18pt-Black.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/fonts/CitadelScriptStd.woff2" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,600;1,700;1,800;1,900&display=swap">
 <style>
+/* Somi Start campaign faces. Served from the repo, originals untouched;
+   the woff2 is a format conversion of the same file, listed first for weight. */
+@font-face{
+  font-family:'Citadel Script';
+  src:url('/fonts/CitadelScriptStd.woff2') format('woff2'),
+      url('/fonts/CitadelScriptStd.otf') format('opentype');
+  font-weight:400;font-style:normal;font-display:swap;
+}
+@font-face{
+  font-family:'Inter Black';
+  src:url('/fonts/Inter18pt-Black.woff2') format('woff2'),
+      url('/fonts/Inter18pt-Black.ttf') format('truetype');
+  font-weight:900;font-style:normal;font-display:swap;
+}
+
 :root{
   --paper:#FCFCFA;
   --ink:#0E0E0D;
@@ -116,7 +133,7 @@ body.is-open .prog{opacity:1}
 /* the folder-graphic gate was replaced by the template hero above */
 
 /* ================= acts ================= */
-.acts{position:relative;opacity:0;visibility:hidden;
+.acts{position:relative;overflow-x:clip;opacity:0;visibility:hidden;
   transition:opacity .5s var(--ease) .12s,visibility .5s}
 .acts>section{position:relative;z-index:1}
 
@@ -755,11 +772,35 @@ body.on-dark .bar-l em{color:rgba(255,255,255,.52)}
 
 /* h1: text-4xl font-medium tracking-tight, sm:5xl md:6xl lg:7xl, text-background(white) */
 .hero-h1{
-  margin:0;color:#fff;font-weight:500;letter-spacing:-.025em;
-  font-size:clamp(30px,8.6vw,38px);line-height:1.06;max-width:100%;
+  margin:0;color:#fff;max-width:100%;
+  font-size:clamp(36px,11.5vw,48px);
+  line-height:.94;                 /* display line-height, tuned per breakpoint */
+  letter-spacing:-.042em;
+  /* Citadel's swashes reach past the glyph box on both sides, so the block
+     carries its own bleed and gives it back with a negative margin */
+  padding:.1em .2em .16em .17em;
+  margin-left:-.17em;margin-right:-.2em;
 }
-.hero-h1 span{display:block}
-.hero-h1 em{font-style:italic;color:rgba(255,255,255,.8)}
+.hero-h1 .hl{display:block;white-space:nowrap}
+/* Inter Black, tight editorial tracking */
+.hero-h1 b{
+  font-family:'Inter Black',Inter,-apple-system,system-ui,sans-serif;
+  font-weight:900;letter-spacing:-.045em;
+}
+/* Citadel Script, optically larger to hold its own beside the Black,
+   pulled in on both sides so it interlocks rather than floats */
+.hero-h1 i{
+  font-family:'Citadel Script','Citadel Script Std',Georgia,serif;
+  font-style:normal;font-weight:400;
+  font-size:1.34em;line-height:0;
+  letter-spacing:-.012em;
+  margin-right:-.06em;margin-left:-.03em;
+  color:rgba(255,255,255,.94);
+}
+/* a script word leading a line has to reach across its exit stroke to meet
+   the Inter; one closing a line only needs its swash cleared */
+.hero-h1 .hl i:first-child{margin-right:-.115em}
+.hero-h1 .hl i:last-child{margin-right:-.02em}
 
 /* the folder stage takes the panel's slot and its entry animation */
 .hero-stage{
@@ -1050,16 +1091,17 @@ body.is-open .hero{position:fixed;inset:0;opacity:0;visibility:hidden;pointer-ev
     background:radial-gradient(50% 50% at 50% 44%,
       rgba(24,7,2,.6) 0%,rgba(24,7,2,.4) 38%,rgba(24,7,2,.14) 66%,rgba(24,7,2,0) 80%)}
   .hero-note{text-align:left}
-  .hero-h1{font-size:48px}
+  .hero-h1{font-size:clamp(48px,6.4vw,60px);line-height:.92;letter-spacing:-.046em}
   .hero-foot{padding:0 24px}
 }
 /* ---- md: 768px ---- */
-@media (min-width:768px){ .hero-h1{font-size:60px} }
+@media (min-width:768px){ .hero-h1{font-size:clamp(52px,5.4vw,60px)} }
 /* ---- lg: 1024px ---- */
 @media (min-width:1024px){
   .hero-in{padding:calc(150px + env(safe-area-inset-top)) 32px
     calc(170px + env(safe-area-inset-bottom));gap:40px}
-  .hero-h1{font-size:72px}
+  .hero-h1{font-size:clamp(56px,4.9vw,72px);line-height:.9;letter-spacing:-.05em}
+  .hero-h1 i{font-size:1.38em}
   .hero-foot{padding:0 32px}
 }
 @media (prefers-reduced-motion:reduce){
@@ -1129,7 +1171,7 @@ body.is-open .hero{position:fixed;inset:0;opacity:0;visibility:hidden;pointer-ev
 
   <div class="hero-in">
     <h1 class="hero-h1" data-t="heroH1">
-      <span>Todo lo que tu</span><span>negocio necesita</span><span><em>en línea</em>.</span>
+      <span class="hl"><i>Todo</i> <b>lo que tu</b></span><span class="hl"><b>negocio</b> <i>necesita</i></span><span class="hl"><b>en línea.</b></span>
     </h1>
 
     <div class="hero-stage">
@@ -1367,7 +1409,7 @@ const COPY = {
       cta3:'Empezar con Somi Start',cta4:'Cerrar carpeta',proof:'Negocios que ya trabajan con Somi',
       ebBig:'SOMI START',big:'14 servicios.|Una sola mensualidad.|<span class="mut">Nosotros lo mantenemos.</span>',
       tag:'Sistemas Optimizados para Marketing Inteligente',
-      heroH1:'Todo lo que tu|negocio necesita|<em>en línea</em>.',
+      heroH1:'<i>Todo</i> <b>lo que tu</b>|<b>negocio</b> <i>necesita</i>|<b>en línea.</b>',
       heroNote:'14 servicios · 3 áreas · 1 paquete',
       h3a:'14 servicios.|Una mensualidad.|Nosotros lo mantenemos funcionando.',
       svc:'servicios'},
@@ -1392,7 +1434,7 @@ const COPY = {
       cta3:'Start with Somi Start',cta4:'Close the folder',proof:'Businesses already working with Somi',
       ebBig:'SOMI START',big:'14 services.|One monthly fee.|<span class="mut">We keep it running.</span>',
       tag:'Sistemas Optimizados para Marketing Inteligente',
-      heroH1:'Everything your|business needs|<em>online</em>.',
+      heroH1:'<i>Everything</i> <b>your</b>|<b>business</b> <i>needs</i>|<b>online.</b>',
       heroNote:'14 services · 3 areas · 1 package',
       h3a:'14 services.|One monthly fee.|We keep it running.',
       svc:'services'}
@@ -1554,7 +1596,7 @@ function renderCopy(){
   $$('[data-t]').forEach(el=>{
     const v=COPY[lang][el.dataset.t]; if(v==null) return;
     if(el.dataset.t==='heroH1'){
-      el.innerHTML = v.split('|').map(t=>'<span>'+t+'</span>').join('');
+      el.innerHTML = v.split('|').map(t=>'<span class="hl">'+t+'</span>').join('');
     }
     else if(el.hasAttribute('data-lines')){
       el.innerHTML = v.split('|').map(t=>'<span class="ln"><i>'+t+'</i></span>').join('');
