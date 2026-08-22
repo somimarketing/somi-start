@@ -802,6 +802,27 @@ body.on-dark .bar-l em{color:rgba(255,255,255,.52)}
   margin-right:-.06em;margin-left:-.03em;
   color:#FFE9DD;
 }
+/* price badge. Stroke and numerals are #FFC2C2, sampled straight out of the
+   reference PNG, and the proportions match it (3.3:1, fully rounded, numerals
+   at ~.9 of the pill height). The reference's halo is pure black on
+   transparency, which reads as a grey smudge over the orange, so the same
+   separation is rebuilt from the campaign's own warm dark. */
+.hero-h1 .pp{
+  display:inline-flex;align-items:center;justify-content:center;
+  font-family:'Inter Black',Inter,-apple-system,system-ui,sans-serif;
+  font-weight:900;font-style:normal;
+  font-size:.43em;line-height:1;letter-spacing:-.03em;
+  color:#FFC2C2;
+  padding:.2em .62em .24em;
+  border:max(1.2px,.06em) solid #FFC2C2;
+  border-radius:999px;
+  background:rgba(74,14,3,.15);
+  box-shadow:0 0 1.6em .35em rgba(72,14,3,.30);
+  margin-left:.42em;
+  vertical-align:.1em;
+  white-space:nowrap;
+}
+
 /* a script word leading a line has to reach across its exit stroke to meet
    the Inter; one closing a line only needs its swash cleared */
 .hero-h1 .hl i:first-child{margin-right:-.115em}
@@ -1089,15 +1110,14 @@ body.is-open .hero{position:fixed;inset:0;opacity:0;visibility:hidden;pointer-ev
 
 /* ---- sm: 640px ---- */
 @media (min-width:640px){
-  .hero-in{justify-content:flex-start;gap:34px;padding:calc(130px + env(safe-area-inset-top)) 24px
-    calc(170px + env(safe-area-inset-bottom))}
-  .hero-stage{align-items:flex-start}
-  .hero-stage::before{left:calc(var(--fw) * .5);width:calc(var(--fw) * 1.75);
+  /* headline, folder and everything under them share one centred axis */
+  .hero-in{justify-content:flex-start;align-items:center;gap:34px;
+    padding:calc(130px + env(safe-area-inset-top)) 24px calc(170px + env(safe-area-inset-bottom))}
+  .hero-stage::before{width:calc(var(--fw) * 1.75);
     background:radial-gradient(50% 50% at 50% 44%,
       rgba(24,7,2,.6) 0%,rgba(24,7,2,.4) 38%,rgba(24,7,2,.14) 66%,rgba(24,7,2,0) 80%)}
-  .hero-note{text-align:left}
   .hero-h1{font-size:clamp(48px,6.4vw,60px);line-height:.92;letter-spacing:-.046em;
-    width:auto;margin-inline:0}
+    width:max-content;max-width:100%;margin-inline:auto}
   .hero-foot{padding:0 24px}
 }
 /* ---- md: 768px ---- */
@@ -1177,7 +1197,7 @@ body.is-open .hero{position:fixed;inset:0;opacity:0;visibility:hidden;pointer-ev
 
   <div class="hero-in">
     <h1 class="hero-h1" data-t="heroH1">
-      <span class="hl"><i>Todo</i> <b>lo que tu</b></span><span class="hl"><b>negocio</b> <i>necesita</i></span><span class="hl"><b>en línea.</b></span>
+      <span class="hl"><i>Todo</i> <b>lo que tu</b></span><span class="hl"><b>negocio</b> <i>necesita</i></span><span class="hl"><b>en línea.</b><span class="pp">$9,999</span></span>
     </h1>
 
     <div class="hero-stage">
@@ -1415,7 +1435,7 @@ const COPY = {
       cta3:'Empezar con Somi Start',cta4:'Cerrar carpeta',proof:'Negocios que ya trabajan con Somi',
       ebBig:'SOMI START',big:'14 servicios.|Una sola mensualidad.|<span class="mut">Nosotros lo mantenemos.</span>',
       tag:'Sistemas Optimizados para Marketing Inteligente',
-      heroH1:'<i>Todo</i> <b>lo que tu</b>|<b>negocio</b> <i>necesita</i>|<b>en línea.</b>',
+      heroH1:'<i>Todo</i> <b>lo que tu</b>|<b>negocio</b> <i>necesita</i>|<b>en línea.</b><span class="pp">$9,999</span>',
       heroNote:'14 servicios · 3 áreas · 1 paquete',
       h3a:'14 servicios.|Una mensualidad.|Nosotros lo mantenemos funcionando.',
       svc:'servicios'},
@@ -1440,7 +1460,7 @@ const COPY = {
       cta3:'Start with Somi Start',cta4:'Close the folder',proof:'Businesses already working with Somi',
       ebBig:'SOMI START',big:'14 services.|One monthly fee.|<span class="mut">We keep it running.</span>',
       tag:'Sistemas Optimizados para Marketing Inteligente',
-      heroH1:'<i>Everything</i> <b>your</b>|<b>business</b> <i>needs</i>|<b>online.</b>',
+      heroH1:'<i>Everything</i> <b>your</b>|<b>business</b> <i>needs</i>|<b>online.</b><span class="pp">$9,999</span>',
       heroNote:'14 services · 3 areas · 1 package',
       h3a:'14 services.|One monthly fee.|We keep it running.',
       svc:'services'}
