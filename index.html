@@ -834,8 +834,18 @@ body.on-dark .bar-l em{color:rgba(255,255,255,.52)}
   .bar{left:auto;right:var(--pad);width:min(400px,40vw);padding-bottom:18px}
 }
 @media (max-width:899px){
-  .offer .acts-cta{flex-direction:column;align-items:stretch}
+  .offer .acts-cta{flex-direction:column;align-items:stretch;margin-top:24px}
   .offer .acts-cta .btn{width:100%}
+
+  /* mobile reads: what's included -> price -> process -> proof -> close */
+  .acts{display:flex;flex-direction:column}
+  .act2{order:1;padding-top:calc(84px + env(safe-area-inset-top))}
+  .offer{order:2;padding-top:clamp(38px,7vh,54px)}
+  .steps-sec{order:3}
+  .warm{order:4}
+  .act3{order:5}
+  /* the services are already above the price here, so the jump link is noise */
+  .jump{display:none}
 }
 
 </style>
@@ -958,7 +968,7 @@ body.on-dark .bar-l em{color:rgba(255,255,255,.52)}
     <div class="wrap">
       <div class="head">
         <p class="eyebrow rv" data-t="eb2">LO QUE HAY ADENTRO</p>
-        <h2 class="rv" data-split data-t="h2a">Cuatro áreas. <span class="mut">Catorce servicios.</span></h2>
+        <h2 class="rv" data-split data-t="h2a">14 servicios. <span class="mut">Cuatro áreas.</span></h2>
         <p class="lede rv" data-d="2" data-t="lede2">Toca cada área para ver exactamente qué incluye.</p>
       </div>
       <div class="cats rv" data-d="2" id="cats"></div>
@@ -1087,7 +1097,7 @@ const COPY = {
       lede1:'Lo instalamos, lo operamos y lo mantenemos cada mes. Tú solo atiendes a los clientes que llegan.',
       sp1:'Servicios',sp2:'Áreas',sp3:'Paquete',cta1:'Empezar',cta1b:'Empezar',cta1c:'Empezar',
       cta2:'Ver los 14 servicios',eb2:'LO QUE HAY ADENTRO',
-      h2a:'Cuatro áreas. <span class="mut">Catorce servicios.</span>',
+      h2a:'14 servicios. <span class="mut">Cuatro áreas.</span>',
       lede2:'Toca cada área para ver exactamente qué incluye.',
       band:'Empieza con una llamada corta. Nosotros te decimos qué activar primero.',
       eb3:'SOMI START',
@@ -1109,7 +1119,7 @@ const COPY = {
       lede1:'We install it, run it, and maintain it every month. You just handle the customers who show up.',
       sp1:'Services',sp2:'Areas',sp3:'Package',cta1:'Get started',cta1b:'Get started',cta1c:'Get started',
       cta2:'See all 14 services',eb2:'WHAT IS INSIDE',
-      h2a:'Four areas. <span class="mut">Fourteen services.</span>',
+      h2a:'14 services. <span class="mut">Four areas.</span>',
       lede2:'Tap each area to see exactly what it includes.',
       band:'Start with a short call. We tell you what to switch on first.',
       eb3:'SOMI START',
