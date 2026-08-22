@@ -53,7 +53,7 @@ body{
 }
 body:not(.is-open){overflow:hidden;height:100svh}
 img{display:block;max-width:100%}
-button{font:inherit}
+button{font:inherit;color:inherit}
 
 /* ================= header ================= */
 .hdr{
@@ -665,8 +665,8 @@ body.pill-on .pill{opacity:1;transform:none;pointer-events:auto}
 
 /* ---------- 01 · offer summary ---------- */
 .offer{padding:calc(86px + env(safe-area-inset-top)) 0 clamp(30px,6vh,54px)}
-.offer h1{margin:14px 0 0;font-weight:900;letter-spacing:-.055em;line-height:.98;
-  font-size:clamp(33px,9.8vw,58px)}
+.offer h1{margin:14px 0 0;font-weight:900;letter-spacing:-.055em;line-height:.99;
+  font-size:clamp(30px,8.8vw,52px)}
 .offer .lede{margin-top:15px;max-width:30ch;font-size:15px;color:var(--ink-2)}
 
 .deal{display:flex;align-items:center;gap:13px;flex-wrap:wrap;margin:24px 0 0;
@@ -682,7 +682,12 @@ body.pill-on .pill{opacity:1;transform:none;pointer-events:auto}
 .pb-unit{display:flex;flex-direction:column;gap:3px;padding-bottom:6px;
   font-size:9.5px;font-weight:700;letter-spacing:.19em;text-transform:uppercase;color:var(--ink-3)}
 .pb-unit em{font-style:normal;color:var(--signal)}
-.pb-was{order:-1;flex-basis:100%;margin-bottom:4px;font-size:11.5px;font-weight:600;letter-spacing:.02em;color:var(--ink-3)}
+.pb-was{order:-1;flex-basis:100%;display:flex;align-items:baseline;gap:7px;margin-bottom:1px;
+  font-size:12px;font-weight:600;letter-spacing:-.005em}
+.pb-was s{color:var(--ink-2);text-decoration:line-through;
+  text-decoration-color:var(--signal);text-decoration-thickness:1.6px}
+.pb-was em{font-style:normal;font-size:9.5px;font-weight:700;letter-spacing:.17em;
+  text-transform:uppercase;color:var(--ink-3)}
 .pb-was s{text-decoration:line-through;text-decoration-color:var(--signal);text-decoration-thickness:1.5px}
 
 .offer .acts-cta{margin-top:22px}
@@ -710,15 +715,17 @@ body.pill-on .pill{opacity:1;transform:none;pointer-events:auto}
 .cat.open::before{opacity:0;transform:translateY(-6px)}
 .cat-head{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;gap:13px;
   width:100%;padding:15px 16px;background:none;border:0;cursor:pointer;text-align:left;
-  -webkit-tap-highlight-color:transparent;border-radius:18px}
+  color:var(--ink);-webkit-tap-highlight-color:transparent;border-radius:18px;
+  -webkit-appearance:none;appearance:none}
 .cat-n{font-size:10px;font-weight:800;letter-spacing:.16em;color:var(--ink-3);
   font-variant-numeric:tabular-nums;transition:color .3s var(--ease)}
 .cat.open .cat-n{color:var(--signal)}
 .cat-t{min-width:0}
-.cat-t b{display:block;font-size:18px;font-weight:800;letter-spacing:-.035em;line-height:1.14}
+.cat-t b{display:block;font-size:18px;font-weight:800;letter-spacing:-.035em;line-height:1.14;
+  color:var(--ink)}
 .cat-t i{display:block;margin-top:3px;font-style:normal;font-size:11.5px;font-weight:600;color:var(--ink-3);
   transition:color .3s var(--ease)}
-.cat.open .cat-t i{color:var(--signal)}
+.cat.open .cat-t i{color:var(--ink-2)}
 .cat-art{font-size:15px;display:block}
 .cat .gi-art{display:block;width:2.6em;height:2.6em;opacity:.92;
   transition:transform .45s var(--sp),opacity .35s var(--ease)}
@@ -750,9 +757,10 @@ body.pill-on .pill{opacity:1;transform:none;pointer-events:auto}
 .cat-close:focus-visible{outline:2px solid var(--signal);outline-offset:3px}
 
 /* ---------- 03 · proof ---------- */
-.warm{background:var(--paper);padding:clamp(26px,5vw,40px) 0}
-.warm .proof{margin:0;padding:16px 0 18px;
+.warm{background:var(--paper);padding:clamp(10px,2vw,18px) 0 clamp(40px,8vw,64px)}
+.warm .proof{margin:0;padding:20px 0 22px;
   border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.warm .proof .lbl{margin-bottom:15px}
 
 /* ---------- 04 · how it works ---------- */
 .steps-sec{padding:clamp(30px,5.5vh,56px) 0 clamp(36px,6.5vh,66px)}
@@ -806,7 +814,7 @@ body.on-dark .bar-l em{color:rgba(255,255,255,.52)}
 @media (min-width:900px){
   .offer{padding-top:150px}
   .offer .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:end}
-  .offer h1{font-size:clamp(44px,4.5vw,62px)}
+  .offer h1{font-size:clamp(40px,4.05vw,56px)}
   .offer .lede{max-width:34ch}
   .offer .deal{margin-top:0}
   .offer .acts-cta{flex-direction:row}
@@ -929,9 +937,9 @@ body.on-dark .bar-l em{color:rgba(255,255,255,.52)}
           <span><b>1</b><span data-t="d3">paquete</span></span>
         </div>
         <div class="pricebox rv" data-d="3">
+          <span class="pb-was"><s>$24,000 MXN</s><em data-t="wasLbl">valor mensual</em></span>
           <span class="pb-amt">$9,999</span>
           <span class="pb-unit"><span>MXN</span><em data-t="permes">/ mes</em></span>
-          <span class="pb-was" data-t="was">Valor <s>$24,000</s></span>
         </div>
         <div class="acts-cta rv" data-d="3">
           <a class="btn btn-p mag" href="https://wa.somi.city/hola" target="_blank" rel="noopener" data-cta>
@@ -957,17 +965,7 @@ body.on-dark .bar-l em{color:rgba(255,255,255,.52)}
     </div>
   </section>
 
-  <!-- 03 · proof -->
-  <section class="warm">
-    <div class="wrap">
-      <div class="proof rv">
-        <p class="lbl" data-t="proof">Negocios que ya trabajan con Somi</p>
-        <div class="mq"><div class="mq-track" id="mqTrack"></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 04 · how it works -->
+  <!-- 03 · how it starts -->
   <section class="steps-sec">
     <div class="wrap">
       <p class="eyebrow rv" data-t="ebSteps">CÓMO EMPIEZA</p>
@@ -976,6 +974,16 @@ body.on-dark .bar-l em{color:rgba(255,255,255,.52)}
         <div class="step"><b>01</b><div><h3 data-t="s1t">Una llamada corta</h3><p data-t="s1p">Nos cuentas de tu negocio. Te decimos qué activar primero.</p></div></div>
         <div class="step"><b>02</b><div><h3 data-t="s2t">Lo instalamos todo</h3><p data-t="s2p">Sitio, perfiles, contenido, automatizaciones y captación. Sin que muevas un dedo.</p></div></div>
         <div class="step"><b>03</b><div><h3 data-t="s3t">Lo mantenemos activo</h3><p data-t="s3p">Publicaciones, respuestas y reporte cada mes. Tu negocio nunca se apaga.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 · proof -->
+  <section class="warm">
+    <div class="wrap">
+      <div class="proof rv">
+        <p class="lbl" data-t="proof">Negocios que ya trabajan con Somi</p>
+        <div class="mq"><div class="mq-track" id="mqTrack"></div></div>
       </div>
     </div>
   </section>
@@ -1069,7 +1077,7 @@ const DATA = {
 const COPY = {
   es:{
       d1:'servicios',d2:'áreas',d3:'paquete',permes:'/ mes',permes2:'/ mes',permes3:'MXN / mes',
-      was:'Valor <s>$24,000</s>',cerrar:'Cerrar',
+      wasLbl:'valor mensual',cerrar:'Cerrar',
       ebSteps:'CÓMO EMPIEZA',hSteps:'Tú empiezas hoy. <span class="mut">Nosotros hacemos el resto.</span>',
       s1t:'Una llamada corta',s1p:'Nos cuentas de tu negocio. Te decimos qué activar primero.',
       s2t:'Lo instalamos todo',s2p:'Sitio, perfiles, contenido, automatizaciones y captación. Sin que muevas un dedo.',
@@ -1091,7 +1099,7 @@ const COPY = {
       svc:'servicios',open:'Abrir la carpeta',close:'Cerrar carpeta'},
   en:{
       d1:'services',d2:'areas',d3:'package',permes:'/ mo',permes2:'/ mo',permes3:'MXN / mo',
-      was:'Value <s>$24,000</s>',cerrar:'Close',
+      wasLbl:'monthly value',cerrar:'Close',
       ebSteps:'HOW IT STARTS',hSteps:'You start today. <span class="mut">We do the rest.</span>',
       s1t:'One short call',s1p:'Tell us about your business. We tell you what to switch on first.',
       s2t:'We install all of it',s2p:'Site, profiles, content, automations, and lead capture. You do nothing.',
@@ -1234,7 +1242,10 @@ function renderCats(){
     c.querySelector('.cat-head').addEventListener('click',()=>{
       const on=!c.classList.contains('open');
       setCat(c,on);
-      if(on) setTimeout(()=>c.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'}),90);
+      if(on) setTimeout(()=>{
+        const t=c.getBoundingClientRect().top;
+        if(t<74 || t>innerHeight*.55) c.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+      },90);
     });
     c.querySelector('.cat-close').addEventListener('click',()=>{
       setCat(c,false);
@@ -1346,15 +1357,19 @@ function onScroll(){
 }
 addEventListener('scroll',onScroll,{passive:true});
 if('IntersectionObserver' in window){
-  const seen=new Set();
-  const cio=new IntersectionObserver(es=>{
-    es.forEach(e=>e.isIntersecting?seen.add(e.target):seen.delete(e.target));
-    body.classList.toggle('bar-on', body.classList.contains('is-open') && seen.size===0 && scrollY>innerHeight*.34);
-  },{threshold:.35});
-  $$('[data-cta]').forEach(el=>cio.observe(el));
-  addEventListener('scroll',()=>{
-    body.classList.toggle('bar-on', body.classList.contains('is-open') && seen.size===0 && scrollY>innerHeight*.34);
-  },{passive:true});
+  /* the bar takes over the moment the hero CTA leaves the screen, and stays
+     for the rest of the page except where the closing CTA would compete */
+  const hero=$('.offer [data-cta]'), last=$('.act3 [data-cta]');
+  let heroGone=false, lastSeen=false;
+  const sync=()=>body.classList.toggle('bar-on',
+    body.classList.contains('is-open') && heroGone && !lastSeen);
+  if(hero) new IntersectionObserver(es=>{
+    es.forEach(e=>heroGone=!e.isIntersecting); sync();
+  },{threshold:0}).observe(hero);
+  if(last) new IntersectionObserver(es=>{
+    es.forEach(e=>lastSeen=e.isIntersecting); sync();
+  },{threshold:.4}).observe(last);
+  addEventListener('scroll',sync,{passive:true});
 }
 
 /* header inverts over the closing act */
